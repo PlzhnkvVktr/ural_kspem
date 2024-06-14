@@ -25,7 +25,10 @@ fun MGRTestWindow (viewModel: MGRViewModel) {
                 Text(text = viewModel.nameMGR, style = MaterialTheme.typography.h5)
             }
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = "set values", style = MaterialTheme.typography.h6)
+                viewModel.currentTest.value?.let { Text(text = it.factoryNumber, style = MaterialTheme.typography.h5) }
+            }
+            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
+                Text(text = "Установленные значения", style = MaterialTheme.typography.h6)
             }
             Row(Modifier.background(Color.Gray)) {
                 TableCell(text = "Um")
@@ -65,7 +68,7 @@ fun MGRTestWindow (viewModel: MGRViewModel) {
             horizontalAlignment = Alignment.End
         ) {
             Row(Modifier.background(Color.Gray).fillMaxWidth(0.25f)) {
-                TableCell(text = "res")
+                TableCell(text = "Результат")
             }
 
             Row(Modifier.fillMaxWidth(0.25f)) {

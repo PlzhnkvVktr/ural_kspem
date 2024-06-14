@@ -16,7 +16,6 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import ru.avem.common.ProtocolBuilder
-import ru.avem.common.repos.AppConfig
 import ru.avem.components.*
 import ru.avem.modules.tests.Test
 import ru.avem.components.LogsList
@@ -41,7 +40,12 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navigator = LocalNavigator.currentOrThrow
 
-        LifecycleEffect(onStarted = { viewModel.clearFields() })
+        LifecycleEffect(onStarted = {
+            viewModel.clearFields()
+            getTestObject(mainViewModel.testItemLine)
+            getCurrentTestObject()
+            viewModel.currentTest.value = currentTestObject.value
+        })
 
         Column {
             Scaffold(
@@ -55,7 +59,7 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         Row(
                             modifier = Modifier.border(2.dp, Color.Black)
                         ) {
-                            SpecifiedParamsList()
+                            SpecifiedParamsList(testObjectInfo)
                             Column(
                                 modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.8f).border(1.dp, Color.LightGray)
                             ) {
@@ -69,7 +73,7 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         ) {
                             ActionButton("cancel all", Icons.Filled.Close) {
                                 isTestRunning.value = false
-                                addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber.value)
+                                addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
                                 mainViewModel.testList.clear()
                                 navigator.pop()
                             }
@@ -79,7 +83,7 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                                 viewModel.waiting.value
                             ) {
                                 if (!isTestRunning.value) {
-//                                    start(viewModel, testObject)
+                                    start(viewModel, mainViewModel.testItemLine)
                                     thread {
                                         viewModel.waiting.value = false
                                         Thread.sleep(1000)
@@ -103,7 +107,7 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                                     mainViewModel.testList.clear()
                                     navigator.replace(MainScreen())
 
-                                    addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber.value)
+                                    addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
 
                                     ProtocolBuilder.clear()
                                 }

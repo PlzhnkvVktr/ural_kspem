@@ -8,14 +8,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ru.avem.db.TestItem
 
 @Composable
-fun SpecifiedParamsList () {
+fun SpecifiedParamsList(testObjectInfo: MutableState<TestItem?>) {
 
 
     Column (
@@ -27,8 +29,11 @@ fun SpecifiedParamsList () {
     ) {
         Text(text = "set values", style = MaterialTheme.typography.h5)
 
-
-//        SpecifiedParamsItem(word("Voltage high-voltage test setup, V"), testObject.specifiedViuU)
+        testObjectInfo.value?.let { SpecifiedParamsItem("Наименование", it.name) }
+        testObjectInfo.value?.let { SpecifiedParamsItem("Схема", it.scheme.toString()) }
+        testObjectInfo.value?.let { SpecifiedParamsItem("Ток", it.i) }
+        testObjectInfo.value?.let { SpecifiedParamsItem("Напряжение", it.u_linear) }
+        testObjectInfo.value?.let { SpecifiedParamsItem("Мощность", it.power) }
 //        SpecifiedParamsItem(word("Test Time high-voltage test setup, V"), testObject.specifiedViuTime)
 
     }

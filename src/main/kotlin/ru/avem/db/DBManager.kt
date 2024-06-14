@@ -3,6 +3,7 @@ package ru.avem.db
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import ru.avem.modules.models.TestObject
 import java.sql.Connection
 
 
@@ -23,21 +24,50 @@ object DBManager {
         }
         if (getAllTI().isEmpty()) {
             addTI(
-                name = "ВМЗ05-01(380)",
+                name = "Test",
                 scheme = true,
-                specifiedU = "380",
-                specifiedI = "98",
-                specifiedRPM = "740",
-                specifiedP = "45",
-                specifiedIdleTime = "60",
-                specifiedRunningTime = "90",
-                specifiedMgrU = "1000",
-                specifiedViuU = "1760",
-                specifiedViuTime = "60"
+                power = "20",
+                u_linear = "380",
+                i = "20",
+                i_viu = "0.2",
+                i_mz = "60",
+                u_viu = "1760",
+                u_mgr = "1000",
+                t_viu = "60",
+                t_hh = "60",
+                t_mv = "10",
+                r_max = "200000",
+                r_min = "500",
+                r20_max = "0",
+                r20_min = "0",
+                t = "0.00425"
             )
         }
-
     }
+
+//    fun addTI(
+//        testObject: TestObject
+//    ) {
+//        TestItem.new {
+//            this.name = testObject.name
+//            this.scheme = testObject.scheme
+//            this.power = testObject.power
+//            this.u_linear = testObject.u_linear
+//            this.i = testObject.i
+//            this.i_viu = testObject.i_viu
+//            this.i_mz = testObject.i_mz
+//            this.u_viu = testObject.u_viu
+//            this.u_mgr = testObject.u_mgr
+//            this.t_viu = testObject.t_viu
+//            this.t_hh = testObject.t_hh
+//            this.t_mv = testObject.t_mv
+//            this.r_max = testObject.r_max
+//            this.r_min = testObject.r_min
+//            this.r20_max = testObject.r20_max
+//            this.r20_min = testObject.r20_min
+//            this.t = testObject.t
+//        }
+//    }
 
 
 
@@ -85,29 +115,41 @@ object DBManager {
     fun addTI(
         name: String,
         scheme: Boolean,
-        specifiedU: String,
-        specifiedI: String,
-        specifiedRPM: String,
-        specifiedP: String,
-        specifiedIdleTime: String,
-        specifiedRunningTime: String,
-        specifiedMgrU: String,
-        specifiedViuU: String,
-        specifiedViuTime: String
+        power: String,
+        u_linear: String,
+        i: String,
+        i_viu: String,
+        i_mz: String,
+        u_viu: String,
+        u_mgr: String,
+        t_viu: String,
+        t_hh: String,
+        t_mv: String,
+        r_max: String,
+        r_min: String,
+        r20_max: String,
+        r20_min: String,
+        t: String
     ) {
         transaction {
             TestItem.new {
                 this.name = name
                 this.scheme = scheme
-                this.specifiedU = specifiedU
-                this.specifiedI = specifiedI
-                this.specifiedRPM = specifiedRPM
-                this.specifiedP = specifiedP
-                this.specifiedIdleTime = specifiedIdleTime
-                this.specifiedRunningTime = specifiedRunningTime
-                this.specifiedMgrU = specifiedMgrU
-                this.specifiedViuU = specifiedViuU
-                this.specifiedViuTime = specifiedViuTime
+                this.power = power
+                this.u_linear = u_linear
+                this.i = i
+                this.i_viu = i_viu
+                this.i_mz = i_mz
+                this.u_viu = u_viu
+                this.u_mgr = u_mgr
+                this.t_viu = t_viu
+                this.t_hh = t_hh
+                this.t_mv = t_mv
+                this.r_max = r_max
+                this.r_min = r_min
+                this.r20_max = r20_max
+                this.r20_min = r20_min
+                this.t = t
             }
         }
     }

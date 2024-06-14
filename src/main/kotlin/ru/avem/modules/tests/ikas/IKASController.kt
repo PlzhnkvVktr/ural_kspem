@@ -4,21 +4,18 @@ import androidx.compose.runtime.MutableState
 import ru.avem.common.ProtocolBuilder
 import ru.avem.common.af
 import ru.avem.db.TestItem
+import ru.avem.modules.models.SelectedTestObject
 import ru.avem.modules.common.logger.LogType
-import ru.avem.modules.devices.CM
 import ru.avem.modules.devices.avem.avem4.AVEM4Model
 import ru.avem.modules.devices.avem.avem7.AVEM7Model
-import ru.avem.modules.devices.owen.trm202.TRM202Model
 import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.CustomController.appendMessageToLog
 import ru.avem.modules.tests.CustomController.isStartButton
 import ru.avem.modules.tests.CustomController.isStartPressed
 import ru.avem.modules.tests.CustomController.isTestRunning
-import ru.avem.modules.tests.CustomController.logMessages
 import ru.avem.modules.tests.CustomController.pa62
 import ru.avem.modules.tests.CustomController.pr102
 import ru.avem.modules.tests.CustomController.pv61
-import ru.avem.modules.tests.CustomController.stopTestRunning
 import ru.avem.modules.tests.utils.*
 import ru.avem.utils.getCurrentDate
 import ru.avem.utils.getCurrentTime
@@ -27,7 +24,7 @@ import java.util.*
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
-fun start(viewModel: IKASViewModel, ti: TestItem) {
+fun start(viewModel: IKASViewModel, testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
     viewModel.clearFields()
 
     isTestRunning.value = true
@@ -40,6 +37,7 @@ fun start(viewModel: IKASViewModel, ti: TestItem) {
         viewModel.warningVW.value = false
         viewModel.warningWU.value = false
         if (isTestRunning.value) {
+            appendMessageToLog(testItemLine.value.hasNext().toString(), LogType.MESSAGE)
             CustomController.initPR()
         }
 

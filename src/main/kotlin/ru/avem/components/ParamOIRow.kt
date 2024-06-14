@@ -29,7 +29,13 @@ fun ParamOIRow(
     newParam: MutableState<String>,
     isError: MutableState<Boolean>
 ) {
-    isError.value = if (!isNewTI) validateParam(param, max, min) else validateParam(newParam, max, min)
+    fun validateParam(param: MutableState<String>) =
+        param.value.toDoubleOrNull() != null && param.value.toDouble() > max.toDouble()
+                || param.value.toDoubleOrNull() != null && param.value.toDouble() < min.toDouble()
+                || param.value == ""
+                || param.value.toList().last().toString() == "."
+
+    isError.value = if (!isNewTI) validateParam(param) else validateParam(newParam)
 
     Row(
         modifier = Modifier.fillMaxWidth().height(60.dp).padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp),
@@ -55,7 +61,7 @@ fun ParamOIRow(
                         style = MaterialTheme.typography.caption,
                     )
                 },
-                isError = if (!isNewTI) validateParam(param, max, min) else validateParam(newParam, max, min),
+                isError = if (!isNewTI) validateParam(param) else validateParam(newParam),
                 onValueChange = {
                     if (!isNewTI) {
                         if (it.isEmpty()) param.value = it
@@ -81,8 +87,4 @@ fun isValidText(text: String): Boolean {
     return text.matches(Regex(pattern = "^-?\\d*[.]?\\d*\$"))
 }
 
-private fun validateParam(param: MutableState<String>, max: Number, min: Number) =
-    param.value.toDoubleOrNull() != null && param.value.toDouble() > max.toDouble()
-            || param.value.toDoubleOrNull() != null && param.value.toDouble() < min.toDouble()
-            || param.value == ""
-            || param.value.toList().last().toString() == "."
+

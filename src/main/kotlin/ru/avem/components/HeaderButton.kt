@@ -21,7 +21,7 @@ fun HeaderButton (text: String, screen: Screen) {
         onClick = {
             navigator.replace(screen)
         },
-        modifier = Modifier.width(170.dp)
+        modifier = Modifier.width(250.dp)
         ) {
         Text(text, style = MaterialTheme.typography.h6)
     }

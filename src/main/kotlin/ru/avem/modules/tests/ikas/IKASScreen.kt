@@ -21,7 +21,6 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import ru.avem.common.ProtocolBuilder
-import ru.avem.common.repos.AppConfig
 import ru.avem.components.*
 import ru.avem.components.LogsList
 import ru.avem.modules.tests.Test
@@ -58,7 +57,7 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     Row(
                         modifier = Modifier.border(2.dp, Color.Black)
                     ) {
-                        SpecifiedParamsList()
+//                        SpecifiedParamsList(viewModel.currentTest)
                         Column(
                             modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.8f).border(1.dp, Color.LightGray)
                         ) {
@@ -105,7 +104,7 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     ) {
                         ActionButton("cancel all", Icons.Filled.Close) {
                             isTestRunning.value = false
-                            addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber.value)
+                            addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
                             mainViewModel.testList.clear()
                             navigator.pop()
                         }
@@ -115,7 +114,7 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                             viewModel.waiting.value
                         ) {
                             if (!isTestRunning.value) {
-                                start(viewModel, testObject)
+                                start(viewModel, mainViewModel.testItemLine)
                                 thread {
                                     viewModel.waiting.value = false
                                     sleep(1000)
@@ -132,14 +131,11 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         }
                         ActionButton("next", Icons.Filled.ArrowForward, !isTestRunning.value) {
                             if (mainViewModel.testsLine.value.hasNext()) {
-//                                addReport(viewModel, mainViewModel.factoryNumber.value)
                                 navigator.replace(mainViewModel.testsLine.value.next())
                             } else {
-//                                addReport(viewModel, mainViewModel.factoryNumber.value)
                                 mainViewModel.testList.clear()
                                 navigator.replace(MainScreen())
-                                addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber.value)
-//                                addNewProtocol1(testItem)
+                                addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
                                 ProtocolBuilder.clear()
                             }
                         }

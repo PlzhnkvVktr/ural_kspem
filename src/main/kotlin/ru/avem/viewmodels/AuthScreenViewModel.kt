@@ -11,6 +11,7 @@ import ru.avem.common.repos.AppConfig
 import ru.avem.db.DBManager
 import ru.avem.db.User
 import ru.avem.screens.MainScreen
+import ru.avem.screens.SelectionTestObjectScreen
 
 class AuthScreenViewModel: ScreenModel {
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -27,7 +28,7 @@ class AuthScreenViewModel: ScreenModel {
         scope.launch {
             if (password.value == selectedUser.value.password) {
                 AppConfig.update(selectedUser.value)
-                navigator.replace(MainScreen())
+                navigator.replace(SelectionTestObjectScreen())
             } else {
                 isError.value = true
                 password.value = ""

@@ -193,14 +193,14 @@ object CustomController {
         CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_RAB) { pol.value = it.af() }
     }
 
-    fun checkRPM(n: MutableState<String>) {
-        if (n.value.toDouble() > testObject.specifiedRPM.toDouble() / 2) {
-            appendMessageToLog(("Waiting for engine to stop"), LogType.ERROR)
-            while (isTestRunning.value && n.value.toDouble() > testObject.specifiedRPM.toDouble() / 2) {
-                sleep(1000)
-            }
-        }
-    }
+//    fun checkRPM(n: MutableState<String>) {
+//        if (n.value.toDouble() > testObject.specifiedRPM.toDouble() / 2) {
+//            appendMessageToLog(("Waiting for engine to stop"), LogType.ERROR)
+//            while (isTestRunning.value && n.value.toDouble() > testObject.specifiedRPM.toDouble() / 2) {
+//                sleep(1000)
+//            }
+//        }
+//    }
 
     fun initARN() {
         appendMessageToLog("${("Initialization")} ATP...", LogType.MESSAGE)
@@ -244,7 +244,7 @@ object CustomController {
         if (Uuv != null && Uvw != null && Uwu != null) {
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_AB_REGISTER) { value ->
                 Uuv.value = (value.toDouble() * ktrVoltage).af()
-                if (value.toDouble() * ktrVoltage > testObject.specifiedU.toInt() * 1.1) {
+                if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
                     appendMessageToLog(("Overvoltage"), LogType.ERROR)
                     isTestRunning.value = false
                 }
@@ -255,7 +255,7 @@ object CustomController {
             }
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_BC_REGISTER) { value ->
                 Uvw.value = (value.toDouble() * ktrVoltage).af()
-                if (value.toDouble() * ktrVoltage > testObject.specifiedU.toInt() * 1.1) {
+                if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
                     appendMessageToLog(("Overvoltage"), LogType.ERROR)
                     isTestRunning.value = false
                 }
@@ -266,7 +266,7 @@ object CustomController {
                     (Uuv.value.toDoubleOrDefault(0.0)
                             + Uvw.value.toDoubleOrDefault(0.0)
                             + Uwu.value.toDoubleOrDefault(0.0)) / 3 * ktrVoltage
-                if (value.toDouble() * ktrVoltage > testObject.specifiedU.toInt() * 1.1) {
+                if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
                     appendMessageToLog(("Overvoltage"), LogType.ERROR)
                     isTestRunning.value = false
                 }

@@ -5,6 +5,7 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.avem.modules.models.SelectedTestObject
 import ru.avem.modules.tests.CustomController.logMessages
 import ru.avem.viewmodels.MainScreenViewModel
 
@@ -17,6 +18,8 @@ class MGRViewModel(): ScreenModel{
     var waiting = mutableStateOf(true)
     val scope = CoroutineScope(Dispatchers.Default)
 
+    val currentTest = mutableStateOf<SelectedTestObject?>(null)
+
     val U: MutableState<String> = mutableStateOf("")
     var specifiedMgrU = mutableStateOf("")
     val R15: MutableState<String> = mutableStateOf("")
@@ -27,6 +30,10 @@ class MGRViewModel(): ScreenModel{
 
     val time: MutableState<String> = mutableStateOf("")
     val result: MutableState<String> = mutableStateOf("")
+
+//    fun getTestObject (testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
+//        currentTest.value = testItemLine.value.next()
+//    }
 
     fun clearFields() {
         scope.launch {
