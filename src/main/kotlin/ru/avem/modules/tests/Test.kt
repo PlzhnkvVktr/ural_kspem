@@ -16,13 +16,29 @@ abstract class Test (
 
 ): Screen, MainScreenViewModel() {
     open val testName: String = ""
-    val currentTestObject = mutableStateOf<SelectedTestObject?>(null)
-    val testObjectInfo = mutableStateOf<TestItem?>(null)
 
-    fun getTestObject(testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
-        currentTestObject.value = testItemLine.value.next()
+
+    companion object {
+        val currentTestObject = mutableStateOf<SelectedTestObject?>(null)
+        val testObjectInfo = mutableStateOf<TestItem?>(null)
+        private fun getNextTestObject(
+            testItemLine: MutableState<MutableIterator<SelectedTestObject>>,
+            currentTest: MutableState<SelectedTestObject?>
+        ) {
+            currentTestObject.value = testItemLine.value.next()
+            currentTest.value = currentTestObject.value
+        }
+        private fun getTestObjectInfo() {
+            testObjectInfo.value = currentTestObject.value?.let { DBManager.getTI(it.selectedTI) }
+        }
+        fun getCurrentTestObject(
+            testItemLine: MutableState<MutableIterator<SelectedTestObject>>,
+            currentTest: MutableState<SelectedTestObject?>
+            ) {
+            getNextTestObject(testItemLine, currentTest)
+            getTestObjectInfo()
+        }
     }
-    fun getCurrentTestObject() {
-        testObjectInfo.value = currentTestObject.value?.let { DBManager.getTI(it.selectedTI) }
-    }
+
+
 }

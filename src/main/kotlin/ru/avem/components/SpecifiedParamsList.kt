@@ -21,7 +21,7 @@ fun SpecifiedParamsList(testObjectInfo: MutableState<TestItem?>) {
 
 
     Column (
-        modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.2f).border(1.dp, Color.LightGray).padding(10.dp).verticalScroll(
+        modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.12f).border(1.dp, Color.LightGray).padding(10.dp).verticalScroll(
             rememberScrollState()
         ),
         verticalArrangement = Arrangement.SpaceBetween,

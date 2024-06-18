@@ -16,7 +16,7 @@ fun Header(
     Row (
         Modifier.fillMaxWidth()
     ) {
-        HeaderButton("Испытания", SelectionTestObjectScreen())
+        HeaderButton("Испытания", MainScreen())
         HeaderButton("Объкт испытания", EditorOIScreen())
         HeaderButton("Протоколы", ProtocolScreen())
         if (isAdmin) {

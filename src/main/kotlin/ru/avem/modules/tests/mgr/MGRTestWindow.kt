@@ -24,44 +24,61 @@ fun MGRTestWindow (viewModel: MGRViewModel) {
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
                 Text(text = viewModel.nameMGR, style = MaterialTheme.typography.h5)
             }
+//            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
+//                Text(text = "Номинальные параметры", style = MaterialTheme.typography.h6)
+//            }
+//            Row(Modifier.background(Color.Gray)) {
+//                TableCell(text = "Um")
+//            }
+//            Row(Modifier.padding(bottom = 20.dp)) {
+//                TableCell(text = viewModel.specifiedMgrU.value)
+//            }
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                viewModel.currentTest.value?.let { Text(text = it.factoryNumber, style = MaterialTheme.typography.h5) }
-            }
-            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = "Установленные значения", style = MaterialTheme.typography.h6)
+                Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
             }
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "Um")
-            }
-            Row(Modifier.padding(bottom = 20.dp)) {
-                TableCell(text = viewModel.specifiedMgrU.value)
-            }
-            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = "measured values", style = MaterialTheme.typography.h6)
-            }
-            Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "Um")
-                TableCell(text = "R15, M" + "ohm")
-                TableCell(text = "R60, M" + "ohm")
+                TableCell(text = "Наименование")
+                TableCell(text = "U номинальное")
+                TableCell(text = "U")
+                TableCell(text = "R15, Ом")
+                TableCell(text = "R60, Ом")
                 TableCell(text = "Abs")
             }
             Row() {
-                TableCell(text = viewModel.U.value)
-                TableCell(text = viewModel.R15.value)
-                TableCell(text = viewModel.R60.value)
-                TableCell(text = viewModel.kABS.value)
+                TableCell(text = viewModel.name_1.value)
+                TableCell(text = viewModel.specifiedMgrU_1.value)
+                TableCell(text = viewModel.U_1.value)
+                TableCell(text = viewModel.R15_1.value)
+                TableCell(text = viewModel.R60_1.value)
+                TableCell(text = viewModel.kABS_1.value)
             }
-            Column (
-                modifier = Modifier.padding(top = 20.dp)
-            ) {
-                Row(Modifier.background(Color.Gray).fillMaxWidth(0.5f)) {
-                    TableCell(text = "t")
-                }
-
-                Row(Modifier.fillMaxWidth(0.5f)) {
-                    TableCell(text = viewModel.tempAmb.value)
-                }
+            Row() {
+                TableCell(text = viewModel.name_2.value)
+                TableCell(text = viewModel.specifiedMgrU_2.value)
+                TableCell(text = viewModel.U_2.value)
+                TableCell(text = viewModel.R15_2.value)
+                TableCell(text = viewModel.R60_2.value)
+                TableCell(text = viewModel.kABS_2.value)
             }
+            Row() {
+                TableCell(text = viewModel.name_3.value)
+                TableCell(text = viewModel.specifiedMgrU_3.value)
+                TableCell(text = viewModel.U_3.value)
+                TableCell(text = viewModel.R15_3.value)
+                TableCell(text = viewModel.R60_3.value)
+                TableCell(text = viewModel.kABS_3.value)
+            }
+//            Column (
+//                modifier = Modifier.padding(top = 20.dp)
+//            ) {
+//                Row(Modifier.background(Color.Gray).fillMaxWidth(0.5f)) {
+//                    TableCell(text = "t")
+//                }
+//
+//                Row(Modifier.fillMaxWidth(0.5f)) {
+//                    TableCell(text = viewModel.tempAmb.value)
+//                }
+//            }
         }
         Column (
             modifier = Modifier.fillMaxWidth(),

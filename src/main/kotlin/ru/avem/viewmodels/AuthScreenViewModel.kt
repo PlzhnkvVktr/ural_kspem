@@ -28,7 +28,7 @@ class AuthScreenViewModel: ScreenModel {
         scope.launch {
             if (password.value == selectedUser.value.password) {
                 AppConfig.update(selectedUser.value)
-                navigator.replace(SelectionTestObjectScreen())
+                navigator.replace(MainScreen())
             } else {
                 isError.value = true
                 password.value = ""

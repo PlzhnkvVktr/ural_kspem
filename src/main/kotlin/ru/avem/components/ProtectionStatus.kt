@@ -29,10 +29,10 @@ fun ProtectionStatusContainer () {
     ) {
         Text(text = "Состояние защит", style = MaterialTheme.typography.h5)
 
-        ProtectionStatusItem("Overcurrent", CustomController.ikzTI)
-        ProtectionStatusItem("current VIU", CustomController.ikzVIU)
-        ProtectionStatusItem("zone doors open", CustomController.doorZone)
-        ProtectionStatusItem("the doors are open", CustomController.doorSCO)
+        ProtectionStatusItem("Превышение тока ОИ", CustomController.ikzTI)
+        ProtectionStatusItem("Токовая ВИУ", CustomController.ikzVIU)
+        ProtectionStatusItem("Двери зоны", CustomController.doorZone)
+        ProtectionStatusItem("Двери ШСО", CustomController.doorSCO)
     }
 }
 

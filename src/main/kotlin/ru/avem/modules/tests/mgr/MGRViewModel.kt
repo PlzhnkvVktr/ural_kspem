@@ -7,9 +7,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.avem.modules.models.SelectedTestObject
 import ru.avem.modules.tests.CustomController.logMessages
+import ru.avem.modules.tests.Test
 import ru.avem.viewmodels.MainScreenViewModel
 
-class MGRViewModel(): ScreenModel{
+class MGRViewModel(): ScreenModel {
 
     val nameMGR = MainScreenViewModel.TestEnum.nameMGR.testName
 
@@ -20,13 +21,26 @@ class MGRViewModel(): ScreenModel{
 
     val currentTest = mutableStateOf<SelectedTestObject?>(null)
 
-    val U: MutableState<String> = mutableStateOf("")
-    var specifiedMgrU = mutableStateOf("")
-    val R15: MutableState<String> = mutableStateOf("")
-    val R60: MutableState<String> = mutableStateOf("")
-    val kABS: MutableState<String> = mutableStateOf("")
-    val tempAmb: MutableState<String> = mutableStateOf("")
-    val tempTI: MutableState<String> = mutableStateOf("")
+    var specifiedMgrU_1 = mutableStateOf("")
+    val name_1 = mutableStateOf("")
+    val U_1: MutableState<String> = mutableStateOf("")
+    val R15_1: MutableState<String> = mutableStateOf("")
+    val R60_1: MutableState<String> = mutableStateOf("")
+    val kABS_1: MutableState<String> = mutableStateOf("")
+
+    var specifiedMgrU_2 = mutableStateOf("")
+    val name_2 = mutableStateOf("")
+    val U_2: MutableState<String> = mutableStateOf("")
+    val R15_2: MutableState<String> = mutableStateOf("")
+    val R60_2: MutableState<String> = mutableStateOf("")
+    val kABS_2: MutableState<String> = mutableStateOf("")
+
+    var specifiedMgrU_3 = mutableStateOf("")
+    val name_3 = mutableStateOf("")
+    val U_3: MutableState<String> = mutableStateOf("")
+    val R15_3: MutableState<String> = mutableStateOf("")
+    val R60_3: MutableState<String> = mutableStateOf("")
+    val kABS_3: MutableState<String> = mutableStateOf("")
 
     val time: MutableState<String> = mutableStateOf("")
     val result: MutableState<String> = mutableStateOf("")
@@ -38,13 +52,8 @@ class MGRViewModel(): ScreenModel{
     fun clearFields() {
         scope.launch {
             logMessages.clear()
-            U.value = ""
-            specifiedMgrU.value = ""
-            R15.value = ""
-            R60.value = ""
-            kABS.value = ""
-            tempAmb.value = ""
-            tempTI.value = ""
+//            specifiedMgrU.value = ""
+
             time.value = ""
             result.value = ""
         }

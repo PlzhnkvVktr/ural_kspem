@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.runtime.Composable
@@ -42,9 +43,6 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
 
         LifecycleEffect(onStarted = {
             viewModel.clearFields()
-            getTestObject(mainViewModel.testItemLine)
-            getCurrentTestObject()
-            viewModel.currentTest.value = currentTestObject.value
         })
 
         Column {
@@ -98,17 +96,13 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                                     }
                                 }
                             }
-                            ActionButton("next", Icons.Filled.ArrowForward, !isTestRunning.value) {
+                            ActionButton("next", Icons.AutoMirrored.Filled.ArrowForward, !isTestRunning.value) {
                                 if (mainViewModel.testsLine.value.hasNext()) {
-//                                    addReport(viewModel, mainViewModel.factoryNumber.value)
                                     navigator.replace(mainViewModel.testsLine.value.next())
                                 } else {
-//                                    addReport(viewModel, mainViewModel.factoryNumber.value)
                                     mainViewModel.testList.clear()
                                     navigator.replace(MainScreen())
-
                                     addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
-
                                     ProtocolBuilder.clear()
                                 }
                                 logMessages.clear()
