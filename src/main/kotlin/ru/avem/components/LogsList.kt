@@ -2,7 +2,6 @@ package ru.avem.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -12,10 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ru.avem.modules.common.logger.LogMessage
 import ru.avem.modules.common.logger.LogType
 import ru.avem.modules.tests.CustomController.logMessages
-import ru.avem.viu35.composables.ScrollableLazyColumn
 
 
 @Composable

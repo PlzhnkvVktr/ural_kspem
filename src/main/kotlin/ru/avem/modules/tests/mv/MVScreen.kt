@@ -1,4 +1,4 @@
-package ru.avem.modules.tests.mgr
+package ru.avem.modules.tests.mv
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -32,9 +32,9 @@ import ru.avem.viewmodels.TestScreenViewModel
 import kotlin.concurrent.thread
 
 
-class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
+class MVScreen(private var mainViewModel: MainScreenViewModel) : Test() {
     override val testName: String
-        get() = TestEnum.nameMGR.testName
+        get() = TestEnum.nameMV.testName
 
     @Composable
     override fun Content() {
@@ -62,7 +62,7 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                             Column(
                                 modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.8f).border(1.dp, Color.LightGray)
                             ) {
-                                MGRTestWindow(viewModel)
+                                MVTestWindow(viewModel)
                             }
                             ProtectionStatusContainer()
                         }

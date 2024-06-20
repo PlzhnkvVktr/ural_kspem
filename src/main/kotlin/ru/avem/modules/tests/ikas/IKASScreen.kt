@@ -30,6 +30,7 @@ import ru.avem.db.DBManager.addNewProtocol
 import ru.avem.modules.tests.CustomController.isStartButton
 import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.modules.tests.CustomController.testObject
+import ru.avem.viewmodels.TestScreenViewModel
 import java.lang.Thread.sleep
 import kotlin.concurrent.thread
 
@@ -40,11 +41,11 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
 
     @Composable
     override fun Content() {
-        val viewModel = rememberScreenModel { IKASViewModel() }
+        val viewModel = rememberScreenModel { TestScreenViewModel() }
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navigator = LocalNavigator.currentOrThrow
 
-        LifecycleEffect(onStarted = { viewModel.clearFields() })
+//        LifecycleEffect(onStarted = { viewModel.clearFields() })
 
         Scaffold(
             scaffoldState = scaffoldState,
@@ -57,7 +58,7 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     Row(
                         modifier = Modifier.border(2.dp, Color.Black)
                     ) {
-//                        SpecifiedParamsList(viewModel.currentTest)
+                        SpecifiedParamsList(testObjectInfo)
                         Column(
                             modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.8f).border(1.dp, Color.LightGray)
                         ) {
@@ -98,48 +99,11 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         }
                         ProtectionStatusContainer()
                     }
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(10.dp),
-                        horizontalArrangement = Arrangement.SpaceAround
-                    ) {
-                        ActionButton("cancel all", Icons.Filled.Close) {
-                            isTestRunning.value = false
-                            addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
-                            mainViewModel.testList.clear()
-                            navigator.pop()
-                        }
-                        ActionButton(
-                            if (!isTestRunning.value) "start" else "stop",
-                            if (!isTestRunning.value) Icons.Filled.PlayArrow else Icons.Sharp.Stop,
-                            viewModel.waiting.value
-                        ) {
-                            if (!isTestRunning.value) {
-                                start(viewModel, mainViewModel.testItemLine)
-                                thread {
-                                    viewModel.waiting.value = false
-                                    sleep(1000)
-                                    viewModel.waiting.value = true
-                                }
-                            } else {
-                                isTestRunning.value = false
-                                thread {
-                                    viewModel.waiting.value = false
-                                    sleep(1000)
-                                    viewModel.waiting.value = true
-                                }
-                            }
-                        }
-                        ActionButton("next", Icons.Filled.ArrowForward, !isTestRunning.value) {
-                            if (mainViewModel.testsLine.value.hasNext()) {
-                                navigator.replace(mainViewModel.testsLine.value.next())
-                            } else {
-                                mainViewModel.testList.clear()
-                                navigator.replace(MainScreen())
-                                addNewProtocol(testObject.name, testObject, mainViewModel.factoryNumber1.value)
-                                ProtocolBuilder.clear()
-                            }
-                        }
-                    }
+                    TestNavigationBar(
+                        mainViewModel,
+                        viewModel,
+                        navigator
+                    )
                     LogsList()
                 }
                 if (isStartButton.value) {

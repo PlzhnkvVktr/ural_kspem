@@ -3,12 +3,8 @@ package ru.avem.modules.tests
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import kotlinx.coroutines.launch
 import ru.avem.common.af
 import ru.avem.common.repos.AppConfig
-import ru.avem.db.DBManager
 import ru.avem.db.TestItem
 import ru.avem.modules.common.logger.LogMessage
 import ru.avem.modules.common.logger.LogType
@@ -17,17 +13,12 @@ import ru.avem.modules.devices.avem.atr.ATR
 import ru.avem.modules.devices.avem.atr.ATRModel
 import ru.avem.modules.devices.avem.avem4.AVEM4
 import ru.avem.modules.devices.avem.avem7.AVEM7
-import ru.avem.modules.devices.avem.ikas10.IKAS10
-import ru.avem.modules.devices.bris.m4122.M4122
 import ru.avem.modules.devices.owen.pr.PR
-import ru.avem.modules.devices.owen.th01.TH01
-import ru.avem.modules.devices.owen.th01.TH01Model
-import ru.avem.modules.devices.owen.trm202.TRM202
-import ru.avem.modules.devices.owen.trm202.TRM202Model
 import ru.avem.modules.devices.pm130.PM130
 import ru.avem.modules.devices.pm130.PM130Model
 import ru.avem.modules.tests.utils.ms
 import ru.avem.modules.tests.utils.toDoubleOrDefault
+import ru.avem.modules.devices.avem.avem9.AVEM9
 import java.lang.Thread.sleep
 import java.text.SimpleDateFormat
 import kotlin.concurrent.thread
@@ -40,6 +31,7 @@ object CustomController {
     val ATR = CM.getDeviceByID<ATR>(CM.DeviceID.GV240)
     val pv24 = CM.getDeviceByID<AVEM4>(CM.DeviceID.PV24)
     val pa62 = CM.getDeviceByID<AVEM7>(CM.DeviceID.PA62)
+    val pr66 = CM.getDeviceByID<AVEM9>(CM.DeviceID.PR66)
     val pv61 = CM.getDeviceByID<AVEM4>(CM.DeviceID.PV61)
 
     @Volatile
@@ -53,6 +45,7 @@ object CustomController {
     var doorSCO = mutableStateOf(false)
     var ikzTI = mutableStateOf(false)
     var ikzVIU = mutableStateOf(false)
+    var statusMGR: Int = 0
 
     var voltOnATR = 1.0
     var ktrVoltage = 1.0
@@ -188,6 +181,18 @@ object CustomController {
         }
     }
 
+    fun initAVEM9 () {
+        appendMessageToLog("Инициализация АВЭМ-9", LogType.MESSAGE)
+        pr66.checkResponsibility()
+        sleep(1000)
+
+        if (isTestRunning.value) pr66.pollVoltageAKB()
+        if (isTestRunning.value && pr66.lowBattery.value) {
+            appendMessageToLog("Низкий заряд АВЭМ-9. Подождите немного и повторите запуск", LogType.ERROR)
+            isTestRunning.value = false
+        }
+    }
+
     fun initVibro(pol: MutableState<String>, rab: MutableState<String>) {
         CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_POL) { rab.value = it.af() }
         CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_RAB) { pol.value = it.af() }
@@ -298,54 +303,54 @@ object CustomController {
         }
     }
 
-    fun chooseCurrentStage(
-        iu: MutableState<String>,
-        iv: MutableState<String>,
-        iw: MutableState<String>
-    ) {
-        appendMessageToLog("Подбор токовой ступени", LogType.MESSAGE)
-        var Iu = iu.value.toDoubleOrDefault(100.0)
-        var Iv = iv.value.toDoubleOrDefault(100.0)
-        var Iw = iw.value.toDoubleOrDefault(100.0)
-
-        appendMessageToLog("Проверка <80А: $Iu А | $Iv А | $Iw А", LogType.MESSAGE)
-        if (Iu < 80.0 && Iv < 80.0 && Iw < 80.0) {
-            pr102.i80(true)
-            pr102.iMax250(false)
-            ktrAmperage = 80.0 / 5.0
-        }
-        if (isTestRunning.value) {
-            var timer = 5.0
-            while (isTestRunning.value && timer > 0) {
-                sleep(100)
-                timer -= 0.1
-            }
-        }
-        Iu = iu.value.toDoubleOrDefault(100.0)
-        Iv = iv.value.toDoubleOrDefault(100.0)
-        Iw = iw.value.toDoubleOrDefault(100.0)
-        appendMessageToLog("Проверка <20А: $Iu А | $Iv А | $Iw А", LogType.MESSAGE)
-        if (Iu < 20.0 && Iv < 20.0 && Iw < 20.0) {
-            pr102.i20(true)
-            pr102.i80(false)
-            ktrAmperage = 20.0 / 5.0
-        }
-        if (isTestRunning.value) {
-            var timer = 5.0
-            while (isTestRunning.value && timer > 0) {
-                Thread.sleep(100)
-                timer -= 0.1
-            }
-        }
-        Iu = iu.value.toDoubleOrDefault(100.0)
-        Iv = iv.value.toDoubleOrDefault(100.0)
-        Iw = iw.value.toDoubleOrDefault(100.0)
-        appendMessageToLog("Проверка <5А: $Iu А | $Iv А | $Iw А", LogType.MESSAGE)
-        if (Iu < 5.0 && Iv < 5.0 && Iw < 5.0) {
-            pr102.iMin(true)
-            pr102.i20(false)
-            ktrAmperage = 5.0 / 5.0
-        }
-
-    }
+//    fun chooseCurrentStage(
+//        iu: MutableState<String>,
+//        iv: MutableState<String>,
+//        iw: MutableState<String>
+//    ) {
+//        appendMessageToLog("Подбор токовой ступени", LogType.MESSAGE)
+//        var Iu = iu.value.toDoubleOrDefault(100.0)
+//        var Iv = iv.value.toDoubleOrDefault(100.0)
+//        var Iw = iw.value.toDoubleOrDefault(100.0)
+//
+//        appendMessageToLog("Проверка <80А: $Iu А | $Iv А | $Iw А", LogType.MESSAGE)
+//        if (Iu < 80.0 && Iv < 80.0 && Iw < 80.0) {
+//            pr102.i80(true)
+//            pr102.iMax250(false)
+//            ktrAmperage = 80.0 / 5.0
+//        }
+//        if (isTestRunning.value) {
+//            var timer = 5.0
+//            while (isTestRunning.value && timer > 0) {
+//                sleep(100)
+//                timer -= 0.1
+//            }
+//        }
+//        Iu = iu.value.toDoubleOrDefault(100.0)
+//        Iv = iv.value.toDoubleOrDefault(100.0)
+//        Iw = iw.value.toDoubleOrDefault(100.0)
+//        appendMessageToLog("Проверка <20А: $Iu А | $Iv А | $Iw А", LogType.MESSAGE)
+//        if (Iu < 20.0 && Iv < 20.0 && Iw < 20.0) {
+//            pr102.i20(true)
+//            pr102.i80(false)
+//            ktrAmperage = 20.0 / 5.0
+//        }
+//        if (isTestRunning.value) {
+//            var timer = 5.0
+//            while (isTestRunning.value && timer > 0) {
+//                Thread.sleep(100)
+//                timer -= 0.1
+//            }
+//        }
+//        Iu = iu.value.toDoubleOrDefault(100.0)
+//        Iv = iv.value.toDoubleOrDefault(100.0)
+//        Iw = iw.value.toDoubleOrDefault(100.0)
+//        appendMessageToLog("Проверка <5А: $Iu А | $Iv А | $Iw А", LogType.MESSAGE)
+//        if (Iu < 5.0 && Iv < 5.0 && Iw < 5.0) {
+//            pr102.iMin(true)
+//            pr102.i20(false)
+//            ktrAmperage = 5.0 / 5.0
+//        }
+//
+//    }
 }

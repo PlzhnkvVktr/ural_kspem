@@ -1,4 +1,4 @@
-package ru.avem.modules.tests.mgr
+package ru.avem.modules.tests.hh
 
 import androidx.compose.runtime.MutableState
 import ru.avem.common.ProtocolBuilder
@@ -18,8 +18,6 @@ import ru.avem.utils.getCurrentDate
 import ru.avem.utils.getCurrentTime
 import ru.avem.viewmodels.TestScreenViewModel
 import ru.avem.modules.devices.avem.avem9.AVEM9Model
-import ru.avem.modules.tests.CustomController.initAVEM9
-import ru.avem.modules.tests.CustomController.initPR
 import java.lang.Thread.sleep
 import kotlin.concurrent.thread
 
@@ -27,9 +25,12 @@ fun start(viewModel: TestScreenViewModel, testItemLine: MutableState<MutableIter
 //    viewModel.clearFields()
 
     thread {
+        println(testObjectName)
+        println(testObject)
+        println(viewModel.name_1.value)
         isTestRunning.value = true
-        if (isTestRunning.value) initPR()
-        if (isTestRunning.value) initAVEM9()
+//        if (isTestRunning.value) initPR()
+//        if (isTestRunning.value) initAVEM9()
         if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
         if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_2, viewModel.specifiedMgrU_2)
         if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_3, viewModel.specifiedMgrU_3)
@@ -64,44 +65,6 @@ fun startMeasurementMGR (
         }
         if (viewModel.isDialog.value) isTestRunning.value = false
 
-        if (isTestRunning.value) {
-            pr102.viu1(true)
-            sleep(1000)
-        }
-        if (isTestRunning.value) {
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.STATUS) { value ->
-                statusMGR = value.toInt()
-            }
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R15_MEAS) { value ->
-                viewModel.R15_1.value = value.toString()
-            }
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R60_MEAS) { value ->
-                viewModel.R60_2.value = value.toString()
-            }
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.ABSORPTION) { value ->
-                viewModel.kABS_1.value = value.toString()
-            }
-            pr66.startMeasurement(
-                AVEM9Model.MeasurementMode.Resistance, when {
-                    testObject.u_mgr.toInt() == 2500 -> {
-                        AVEM9Model.SpecifiedVoltage.V2500
-                    }
-                    testObject.u_mgr.toInt() == 1000 -> {
-                        AVEM9Model.SpecifiedVoltage.V1000
-                    }
-                    testObject.u_mgr.toInt() == 500 -> {
-                        AVEM9Model.SpecifiedVoltage.V500
-                    }
-                    else -> {
-                        AVEM9Model.SpecifiedVoltage.V500
-                    }
-                })
-            CustomController.appendMessageToLog("Идет измерение...", LogType.ERROR)
-        }
-        var time = 30
-        while (isTestRunning.value && statusMGR != 4 && time-- > 0) {
-            sleep(1000)
-        }
 
     } else {
         isTestRunning.value = false
@@ -110,15 +73,8 @@ fun startMeasurementMGR (
 }
 
 
-fun addReport(mgrVM: MGRViewModel) {
+fun addReport() {
     with(ProtocolBuilder) {
-//        U = mgrVM.U.value
-//        R15 = mgrVM.R15.value
-//        R60 = mgrVM.R60.value
-//        kABS = mgrVM.kABS.value
-        operator = CustomController.currentOperator.value
-        date = getCurrentDate()
-        time = getCurrentTime()
-        mgrResult = mgrVM.result.value
+
     }
 }

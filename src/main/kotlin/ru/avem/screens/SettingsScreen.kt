@@ -24,7 +24,7 @@ import ru.avem.components.ActionButton
 import ru.avem.components.Header
 import ru.avem.components.UserListItem
 import ru.avem.viewmodels.SettingsScreenViewModel
-import ru.avem.viu35.composables.ScrollableLazyColumn
+import ru.avem.components.ScrollableLazyColumn
 
 class SettingsScreen: Screen {
 

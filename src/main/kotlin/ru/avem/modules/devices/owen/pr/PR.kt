@@ -168,7 +168,7 @@ class PR(
         }
     }
 
-    fun hh380(stat: Boolean) {
+    fun i_max(stat: Boolean) {
         if (stat) {
             onOutput01To16(2)
         } else {
@@ -176,15 +176,7 @@ class PR(
         }
     }
 
-    fun iMax250(stat: Boolean) {
-        if (stat) {
-            onOutput01To16(3)
-        } else {
-            offOutput01To16(3)
-        }
-    }
-
-    fun vdStar(stat: Boolean) {
+    fun viu(stat: Boolean) {
         if (stat) {
             onOutput01To16(4)
         } else {
@@ -192,15 +184,7 @@ class PR(
         }
     }
 
-    fun i80(stat: Boolean) {
-        if (stat) {
-            onOutput01To16(5)
-        } else {
-            offOutput01To16(5)
-        }
-    }
-
-    fun izmU(stat: Boolean) {
+    fun mgr(stat: Boolean) {
         if (stat) {
             onOutput01To16(6)
         } else {
@@ -208,86 +192,80 @@ class PR(
         }
     }
 
-    fun ktr(stat: Boolean) {
-        if (stat) {
-            onOutput01To16(7)
-        } else {
-            offOutput01To16(7)
-        }
-    }
-    fun ikas(stat: Boolean) {
-        if (stat) {
-            onOutput01To16(8)
-        } else {
-            offOutput01To16(8)
-        }
-    }
-
-    fun tvVIU(stat: Boolean) {
+    fun ikasA(stat: Boolean) {
         if (stat) {
             onOutput01To16(9)
         } else {
             offOutput01To16(9)
         }
     }
-
-    fun MV(stat: Boolean) {
+    fun ikasBc(stat: Boolean) {
         if (stat) {
             onOutput01To16(10)
         } else {
             offOutput01To16(10)
         }
     }
-
-    fun iMin(stat: Boolean) {
+    fun ikasBa(stat: Boolean) {
         if (stat) {
             onOutput01To16(11)
         } else {
             offOutput01To16(11)
         }
     }
-
-    fun hh220(stat: Boolean) {
+    fun ikasC(stat: Boolean) {
         if (stat) {
             onOutput01To16(12)
         } else {
             offOutput01To16(12)
         }
     }
-
-    fun i20(stat: Boolean) {
+    fun viu1(stat: Boolean) {
         if (stat) {
-            onOutput01To16(13)
+            onOutput17To32(1)
         } else {
-            offOutput01To16(13)
+            onOutput17To32(1)
         }
     }
-    fun arnDirect(stat: Boolean) {
+    fun viu2(stat: Boolean) {
         if (stat) {
-            onOutput01To16(14)
-            isDirect = true
+            onOutput17To32(2)
         } else {
-            offOutput01To16(14)
-            isDirect = false
+            onOutput17To32(2)
         }
     }
-    fun arnBack(stat: Boolean) {
+    fun viu3(stat: Boolean) {
         if (stat) {
-            onOutput01To16(15)
-            isBackward = true
+            onOutput17To32(3)
         } else {
-            offOutput01To16(15)
-            isBackward = false
+            onOutput17To32(3)
         }
     }
 
-    fun vdFirst(stat: Boolean) {
+    fun hh1(stat: Boolean) {
         if (stat) {
-            onOutput01To16(16)
+            onOutput17To32(4)
         } else {
-            offOutput01To16(16)
+            onOutput17To32(4)
         }
     }
+
+    fun hh2(stat: Boolean) {
+        if (stat) {
+            onOutput17To32(5)
+        } else {
+            onOutput17To32(5)
+        }
+    }
+
+    fun hh3(stat: Boolean) {
+        if (stat) {
+            onOutput17To32(6)
+        } else {
+            onOutput17To32(6)
+        }
+    }
+
 
     override fun writeRequest(request: String) {}
 

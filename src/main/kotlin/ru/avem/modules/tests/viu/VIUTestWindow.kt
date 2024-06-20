@@ -1,4 +1,4 @@
-package ru.avem.modules.tests.mgr
+package ru.avem.modules.tests.viu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,7 +13,7 @@ import ru.avem.components.TableCell
 import ru.avem.viewmodels.TestScreenViewModel
 
 @Composable
-fun MGRTestWindow (viewModel: TestScreenViewModel) {
+fun VIUTestWindow (viewModel: TestScreenViewModel) {
 
     Column(
         Modifier.fillMaxSize().padding(16.dp),
@@ -23,7 +23,7 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
             modifier = Modifier.padding(bottom = 20.dp)
         ) {
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = viewModel.nameMGR, style = MaterialTheme.typography.h5)
+                Text(text = viewModel.nameVIU, style = MaterialTheme.typography.h5)
             }
 //            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
 //                Text(text = "Номинальные параметры", style = MaterialTheme.typography.h6)

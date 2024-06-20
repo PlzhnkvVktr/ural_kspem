@@ -3,6 +3,8 @@ package ru.avem.modules.tests
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ru.avem.db.DBManager
 import ru.avem.db.TestItem
 import ru.avem.modules.models.SelectedTestObject
@@ -16,7 +18,6 @@ abstract class Test (
 
 ): Screen, MainScreenViewModel() {
     open val testName: String = ""
-
 
     companion object {
         val currentTestObject = mutableStateOf<SelectedTestObject?>(null)

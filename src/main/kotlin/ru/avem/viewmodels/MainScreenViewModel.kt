@@ -3,14 +3,20 @@ package ru.avem.viewmodels
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
+import cafe.adriel.voyager.core.registry.screenModule
 import ru.avem.db.DBManager
 import ru.avem.modules.models.SelectedTestObject
 import ru.avem.modules.tests.Test
+import ru.avem.modules.tests.hh.HHScreen
+import ru.avem.modules.tests.ikas.IKASScreen
+import ru.avem.modules.tests.mgr.MGRScreen
+import ru.avem.modules.tests.mv.MVScreen
+import ru.avem.modules.tests.viu.VIUScreen
 
 open class MainScreenViewModel : ScreenModel {
     var allCheckedButton: MutableState<Boolean> = mutableStateOf(false)
     var startTestButton: MutableState<Boolean> = mutableStateOf(false)
-
 
     enum class TestEnum(var testName: String) {
         nameMGR("Испытание изоляции обмоток относительно корпуса и между фазами обмотки на электрическую прочность"),
@@ -46,6 +52,16 @@ open class MainScreenViewModel : ScreenModel {
     var factoryNumber1 = mutableStateOf("")
     var factoryNumber2 = mutableStateOf("")
     var factoryNumber3 = mutableStateOf("")
+
+    fun checkTest (item: TestEnum): Boolean {
+        return when (item) {
+            TestEnum.nameMGR -> testList.add(MGRScreen(this))
+            TestEnum.nameVIU -> testList.add(IKASScreen(this))
+            TestEnum.nameIKAS -> testList.add(VIUScreen(this))
+            TestEnum.nameHH -> testList.add(HHScreen(this))
+            TestEnum.nameMV -> testList.add(MVScreen(this))
+        }
+    }
 
     fun createTestItemList () {
         if (factoryNumber1.value.isNotEmpty()) testItemList.add(SelectedTestObject(1, factoryNumber1.value, selectedTI1.value))

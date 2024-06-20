@@ -11,9 +11,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.avem.common.af
 import ru.avem.components.TableCell
+import ru.avem.viewmodels.TestScreenViewModel
 
 @Composable
-fun IKASTestWindow (viewModel: IKASViewModel) {
+fun IKASTestWindow (viewModel: TestScreenViewModel) {
 
     Column(
         Modifier.fillMaxSize().padding(16.dp),
@@ -28,13 +29,25 @@ fun IKASTestWindow (viewModel: IKASViewModel) {
             }
 
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "")
-                TableCell(text = "R UV, " + "ohm")
-                TableCell(text = "R VW, " + "ohm")
-                TableCell(text = "R WU, " + "ohm")
+                TableCell(text = "Измеренные значения")
+                TableCell(text = "R UV, Ом")
+                TableCell(text = "R VW, Ом")
+                TableCell(text = "R WU, Ом")
             }
             Row() {
-                TableCell(text = "measured values")
+                TableCell(text = "")
+                TableCell(text = viewModel.Ruv1.value)
+                TableCell(text = viewModel.Rvw1.value)
+                TableCell(text = viewModel.Rwu1.value)
+            }
+            Row() {
+                TableCell(text = "")
+                TableCell(text = viewModel.Ruv1.value)
+                TableCell(text = viewModel.Rvw1.value)
+                TableCell(text = viewModel.Rwu1.value)
+            }
+            Row() {
+                TableCell(text = "")
                 TableCell(text = viewModel.Ruv1.value)
                 TableCell(text = viewModel.Rvw1.value)
                 TableCell(text = viewModel.Rwu1.value)
@@ -43,32 +56,48 @@ fun IKASTestWindow (viewModel: IKASViewModel) {
                 modifier = Modifier.padding(top = 20.dp)
             ) {
                 Row(Modifier.background(Color.Gray)) {
-                    TableCell(text = "")
-                    TableCell(text = "R U, " +"ohm")
-                    TableCell(text = "R V, " +"ohm")
-                    TableCell(text = "R W, " +"ohm")
+                    TableCell(text = "Приведенные к 20 °C")
+                    TableCell(text = "R U, Ом")
+                    TableCell(text = "R V, Ом")
+                    TableCell(text = "R W, Ом")
+                    TableCell(text = "Разница")
                 }
                 Row() {
-                    TableCell(text ="reduced" + " 20 °C")
+                    TableCell(text = "")
                     TableCell(text = viewModel.calcUV.value)
                     TableCell(text = viewModel.calcVW.value)
+                    TableCell(text = viewModel.calcWU.value)
+                    TableCell(text = viewModel.calcWU.value)
+                }
+                Row() {
+                    TableCell(text = "")
+                    TableCell(text = viewModel.calcUV.value)
+                    TableCell(text = viewModel.calcVW.value)
+                    TableCell(text = viewModel.calcWU.value)
+                    TableCell(text = viewModel.calcWU.value)
+                }
+                Row() {
+                    TableCell(text = "")
+                    TableCell(text = viewModel.calcUV.value)
+                    TableCell(text = viewModel.calcVW.value)
+                    TableCell(text = viewModel.calcWU.value)
                     TableCell(text = viewModel.calcWU.value)
                 }
             }
             Column (
                 modifier = Modifier.padding(top = 20.dp)
             ) {
-                Row(Modifier.background(Color.Gray).fillMaxWidth(0.75f)) {
-                    TableCell(text = "t")
-                    TableCell(text = "tI")
-                    TableCell(text = "deviation")
-                }
-
-                Row(Modifier.fillMaxWidth(0.75f)) {
-                    TableCell(text = viewModel.tempTI.value)
-                    TableCell(text = viewModel.tempAmb.value)
-                    TableCell(text = viewModel.deviation.value.af())
-                }
+//                Row(Modifier.background(Color.Gray).fillMaxWidth(0.75f)) {
+//                    TableCell(text = "t")
+//                    TableCell(text = "tI")
+//                    TableCell(text = "Разница")
+//                }
+//
+//                Row(Modifier.fillMaxWidth(0.75f)) {
+//                    TableCell(text = viewModel.tempTI.value)
+//                    TableCell(text = viewModel.tempAmb.value)
+//                    TableCell(text = viewModel.deviation.value.af())
+//                }
             }
         }
 
@@ -77,7 +106,7 @@ fun IKASTestWindow (viewModel: IKASViewModel) {
             horizontalAlignment = Alignment.End
         ) {
             Row(Modifier.background(Color.Gray).fillMaxWidth(0.25f)) {
-                TableCell(text = "res")
+                TableCell(text = "Результат")
             }
 
             Row(Modifier.fillMaxWidth(0.25f)) {

@@ -106,35 +106,35 @@ private fun calcRs(
     }
 }
 
-private fun meas(trigger: MutableState<Boolean>): Double {
-    var resistance: Double = Double.NaN
-    trigger.value = true
-    sleep(100)
-    waitingСonfirm(trigger)
-    isStartButton.value = true
-    while (!isStartPressed.value && isTestRunning.value) {
-        sleep(100)
-    }
-    isStartButton.value = false
+//private fun meas(trigger: MutableState<Boolean>): Double {
+//    var resistance: Double = Double.NaN
+//    trigger.value = true
+//    sleep(100)
+//    waitingСonfirm(trigger)
+//    isStartButton.value = true
+//    while (!isStartPressed.value && isTestRunning.value) {
+//        sleep(100)
+//    }
+//    isStartButton.value = false
 
-    if (isTestRunning.value) {
-        pr102.ikas(true)
-        sleep(5000)
-        val voltage = abs(pv61.getRegisterById(AVEM4Model.RMS_VOLTAGE).value.toDouble())
-        val current = abs(pa62.getRegisterById(AVEM7Model.AMPERAGE).value.toDouble())
-        resistance = voltage / current
+//    if (isTestRunning.value) {
+//        pr102.ikas(true)
+//        sleep(5000)
+//        val voltage = abs(pv61.getRegisterById(AVEM4Model.RMS_VOLTAGE).value.toDouble())
+//        val current = abs(pa62.getRegisterById(AVEM7Model.AMPERAGE).value.toDouble())
+//        resistance = voltage / current
 
-        if (0.001 > current) {
-            resistance = Double.NaN
-        }
-    }
+//        if (0.001 > current) {
+//            resistance = Double.NaN
+//        }
+//    }
 
-    if (isTestRunning.value) {
-        pr102.ikas(false)
-        sleep(500)
-    }
-    return resistance
-}
+//    if (isTestRunning.value) {
+//        pr102.ikas(false)
+//        sleep(500)
+//    }
+//    return resistance
+//}
 
 
 fun addReport(ikasVM: IKASViewModel) {

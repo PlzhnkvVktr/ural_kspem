@@ -19,7 +19,6 @@ import ru.avem.db.TestItem
 @Composable
 fun SpecifiedParamsList(testObjectInfo: MutableState<TestItem?>) {
 
-
     Column (
         modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.12f).border(1.dp, Color.LightGray).padding(10.dp).verticalScroll(
             rememberScrollState()
@@ -27,14 +26,13 @@ fun SpecifiedParamsList(testObjectInfo: MutableState<TestItem?>) {
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "set values", style = MaterialTheme.typography.h5)
+        Text(text = "Номинальные параметры", style = MaterialTheme.typography.h5, textAlign = TextAlign.Center)
 
         testObjectInfo.value?.let { SpecifiedParamsItem("Наименование", it.name) }
         testObjectInfo.value?.let { SpecifiedParamsItem("Схема", it.scheme.toString()) }
         testObjectInfo.value?.let { SpecifiedParamsItem("Ток", it.i) }
         testObjectInfo.value?.let { SpecifiedParamsItem("Напряжение", it.u_linear) }
         testObjectInfo.value?.let { SpecifiedParamsItem("Мощность", it.power) }
-//        SpecifiedParamsItem(word("Test Time high-voltage test setup, V"), testObject.specifiedViuTime)
 
     }
 }
@@ -54,7 +52,6 @@ fun SpecifiedParamsItem (text: String, paramValue: String) {
             textAlign = TextAlign.Center
         )
         Text(
-//            text = paramValue.value.toString(),
             text = when (paramValue) {
                 "true" -> "∆"
                 "false" -> "λ"

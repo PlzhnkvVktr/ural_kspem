@@ -9,6 +9,7 @@ import ru.avem.library.polling.IDeviceController
 import ru.avem.library.polling.SimplePollingModel
 import ru.avem.modules.devices.avem.avem4.AVEM4
 import ru.avem.modules.devices.avem.avem7.AVEM7
+import ru.avem.modules.devices.avem.avem9.AVEM9
 import ru.avem.modules.devices.avem.ikas10.IKAS10
 import ru.avem.modules.devices.bris.m4122.M4122
 import ru.avem.modules.devices.owen.pr.PR
@@ -23,7 +24,7 @@ object CM : SimplePollingModel() {
         PAV41("PM-130P"),
         PV61("АВЭМ-4-01"),
         PA62("АВЭМ-7-5000"),
-        PR66("Брис М4122"),
+        PR66("АВЭМ-9"),
         GV240("АРН-1-24-220")
     }
 
@@ -41,7 +42,7 @@ object CM : SimplePollingModel() {
         DeviceID.PV24.name to AVEM4(DeviceID.PV24.name, modbusAdapter, 24),
         DeviceID.PV61.name to AVEM4(DeviceID.PV61.name, modbusAdapter, 61),
         DeviceID.PA62.name to AVEM7(DeviceID.PA62.name, modbusAdapter, 62),
-        DeviceID.PR66.name to AVEM4(DeviceID.PR66.name, modbusAdapter, 66),
+        DeviceID.PR66.name to AVEM9(DeviceID.PR66.name, modbusAdapter, 66),
         DeviceID.PAV41.name to PM130(DeviceID.PAV41.name, modbusAdapter, 41),
         DeviceID.GV240.name to ATR(DeviceID.GV240.name, modbusAdapter, 240.toByte())
     )

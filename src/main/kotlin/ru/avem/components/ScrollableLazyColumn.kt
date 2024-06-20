@@ -1,4 +1,4 @@
-package ru.avem.viu35.composables
+package ru.avem.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalScrollbarStyle
@@ -19,7 +19,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
-import ru.avem.modules.tests.CustomController.isTestRunning
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

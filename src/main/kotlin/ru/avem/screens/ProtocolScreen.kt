@@ -12,7 +12,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import ru.avem.components.Header
 import ru.avem.components.ProtocolListItem
 import ru.avem.viewmodels.ProtocolScreenViewModel
-import ru.avem.viu35.composables.ScrollableLazyColumn
+import ru.avem.components.ScrollableLazyColumn
 
 class ProtocolScreen : Screen {
 

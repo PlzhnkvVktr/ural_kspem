@@ -1,4 +1,4 @@
-package ru.avem.modules.tests.mgr
+package ru.avem.modules.tests.hh
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,7 +23,7 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
             modifier = Modifier.padding(bottom = 20.dp)
         ) {
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = viewModel.nameMGR, style = MaterialTheme.typography.h5)
+                Text(text = viewModel.nameIKAS, style = MaterialTheme.typography.h5)
             }
 //            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
 //                Text(text = "Номинальные параметры", style = MaterialTheme.typography.h6)

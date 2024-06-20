@@ -1,4 +1,4 @@
-package ru.avem.modules.tests.mgr
+package ru.avem.modules.tests.hh
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -32,9 +32,9 @@ import ru.avem.viewmodels.TestScreenViewModel
 import kotlin.concurrent.thread
 
 
-class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
+class HHScreen(private var mainViewModel: MainScreenViewModel) : Test() {
     override val testName: String
-        get() = TestEnum.nameMGR.testName
+        get() = TestEnum.nameHH.testName
 
     @Composable
     override fun Content() {

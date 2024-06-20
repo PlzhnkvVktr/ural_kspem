@@ -11,22 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ru.avem.modules.tests.hh.HHScreen
 import ru.avem.modules.tests.ikas.IKASScreen
 import ru.avem.modules.tests.mgr.MGRScreen
+import ru.avem.modules.tests.mv.MVScreen
+import ru.avem.modules.tests.viu.VIUScreen
 import ru.avem.viewmodels.MainScreenViewModel
 
 @Composable
 fun TestListContainer(viewModel: MainScreenViewModel) {
-
-    fun checkTest (item: MainScreenViewModel.TestEnum): Boolean {
-        return when (item) {
-            MainScreenViewModel.TestEnum.nameMGR -> viewModel.testList.add(MGRScreen(viewModel))
-            MainScreenViewModel.TestEnum.nameVIU -> viewModel.testList.add(IKASScreen(viewModel))
-            MainScreenViewModel.TestEnum.nameIKAS -> viewModel.testList.add(MGRScreen(viewModel))
-            MainScreenViewModel.TestEnum.nameHH -> viewModel.testList.add(IKASScreen(viewModel))
-            MainScreenViewModel.TestEnum.nameMV -> viewModel.testList.add(MGRScreen(viewModel))
-        }
-    }
 
     Column(
         modifier = Modifier.fillMaxWidth(0.8f).border(2.dp, Color.DarkGray)
@@ -40,7 +33,7 @@ fun TestListContainer(viewModel: MainScreenViewModel) {
                     if (found != null) {
                         viewModel.testList.remove(found)
                     } else {
-                        checkTest(item.key)
+                        viewModel.checkTest(item.key)
                     }
 
                     viewModel.testsLine.value = viewModel.testList.iterator()
@@ -57,7 +50,7 @@ fun TestListContainer(viewModel: MainScreenViewModel) {
                         if (found != null) {
                             viewModel.testList.remove(found)
                         } else {
-                            checkTest(item.key)
+                            viewModel.checkTest(item.key)
                         }
 
                         viewModel.testsLine.value = viewModel.testList.iterator()

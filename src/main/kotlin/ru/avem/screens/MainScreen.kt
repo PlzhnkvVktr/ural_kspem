@@ -17,10 +17,13 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import ru.avem.components.*
 import ru.avem.db.DBManager
 import ru.avem.modules.tests.CustomController
+import ru.avem.modules.tests.hh.HHScreen
 import ru.avem.viewmodels.MainScreenViewModel
 import kotlin.concurrent.thread
 import ru.avem.modules.tests.ikas.IKASScreen
 import ru.avem.modules.tests.mgr.MGRScreen
+import ru.avem.modules.tests.mv.MVScreen
+import ru.avem.modules.tests.viu.VIUScreen
 
 class MainScreen() : Screen {
     @Composable
@@ -29,7 +32,6 @@ class MainScreen() : Screen {
         val viewModel = rememberScreenModel { MainScreenViewModel() }
         val navigator = LocalNavigator.currentOrThrow
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-
 
         Scaffold(
             scaffoldState = scaffoldState,
@@ -64,15 +66,9 @@ class MainScreen() : Screen {
                                     if (!viewModel.allCheckedButton.value) {
                                         viewModel.allCheckedButton.value = true
                                         viewModel.testList.clear()
-                                        viewModel.testMap.forEach {
-                                                item -> item.value.value = true
-                                            when (item.key) {
-                                                MainScreenViewModel.TestEnum.nameMGR -> viewModel.testList.add(MGRScreen(viewModel))
-                                                MainScreenViewModel.TestEnum.nameVIU -> viewModel.testList.add(IKASScreen(viewModel))
-                                                MainScreenViewModel.TestEnum.nameIKAS -> viewModel.testList.add(MGRScreen(viewModel))
-                                                MainScreenViewModel.TestEnum.nameHH -> viewModel.testList.add(IKASScreen(viewModel))
-                                                MainScreenViewModel.TestEnum.nameMV -> viewModel.testList.add(MGRScreen(viewModel))
-                                            }
+                                        viewModel.testMap.forEach { item ->
+                                            item.value.value = true
+                                            viewModel.checkTest(item.key)
                                         }
                                     } else {
                                         viewModel.allCheckedButton.value = false
