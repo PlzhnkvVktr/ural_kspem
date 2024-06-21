@@ -1,6 +1,7 @@
 package ru.avem.modules.tests.hh
 
 import androidx.compose.runtime.MutableState
+import kotlinx.coroutines.delay
 import ru.avem.common.ProtocolBuilder
 import ru.avem.db.DBManager
 import ru.avem.modules.common.logger.LogType
@@ -27,19 +28,19 @@ fun start(viewModel: TestScreenViewModel, testItemLine: MutableState<MutableIter
     thread {
         println(testObjectName)
         println(testObject)
-        println(viewModel.name_1.value)
+//        println(viewModel.name_1.value)
         isTestRunning.value = true
 //        if (isTestRunning.value) initPR()
 //        if (isTestRunning.value) initAVEM9()
-        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
-        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_2, viewModel.specifiedMgrU_2)
-        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_3, viewModel.specifiedMgrU_3)
+//        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
+//        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_2, viewModel.specifiedMgrU_2)
+//        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_3, viewModel.specifiedMgrU_3)
 
     }
 
 }
 
-fun startMeasurementMGR (
+suspend fun startMeasurementMGR (
     viewModel: TestScreenViewModel,
     testItemLine: MutableState<MutableIterator<SelectedTestObject>>,
     name: MutableState<String>,
@@ -56,11 +57,11 @@ fun startMeasurementMGR (
 
         viewModel.isDialog.value = true
         while (viewModel.isDialog.value) {
-            sleep(200)
+            delay(200)
         }
         var timer = 300
         while (viewModel.isDialog.value && timer > 0) {
-            sleep(100)
+            delay(100)
             timer -= 1
         }
         if (viewModel.isDialog.value) isTestRunning.value = false

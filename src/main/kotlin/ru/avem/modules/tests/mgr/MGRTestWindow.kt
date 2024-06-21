@@ -45,30 +45,40 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
                 TableCell(text = "R60, Ом")
                 TableCell(text = "Abs")
             }
-            Row() {
-                TableCell(text = viewModel.name_1.value)
-                TableCell(text = viewModel.specifiedMgrU_1.value)
-                TableCell(text = viewModel.mgrU_1.value)
-                TableCell(text = viewModel.R15_1.value)
-                TableCell(text = viewModel.R60_1.value)
-                TableCell(text = viewModel.kABS_1.value)
+            repeat(3) {
+                Row() {
+                    TableCell(text = viewModel.listTestItems[it].name.value)
+                    TableCell(text = viewModel.listTestItems[it].specifiedMgrU.value)
+                    TableCell(text = viewModel.listTestItems[it].mgrU.value)
+                    TableCell(text = viewModel.listTestItems[it].R15.value)
+                    TableCell(text = viewModel.listTestItems[it].R60.value)
+                    TableCell(text = viewModel.listTestItems[it].kABS.value)
+                }
             }
-            Row() {
-                TableCell(text = viewModel.name_2.value)
-                TableCell(text = viewModel.specifiedMgrU_2.value)
-                TableCell(text = viewModel.mgrU_2.value)
-                TableCell(text = viewModel.R15_2.value)
-                TableCell(text = viewModel.R60_2.value)
-                TableCell(text = viewModel.kABS_2.value)
-            }
-            Row() {
-                TableCell(text = viewModel.name_3.value)
-                TableCell(text = viewModel.specifiedMgrU_3.value)
-                TableCell(text = viewModel.mgrU_3.value)
-                TableCell(text = viewModel.R15_3.value)
-                TableCell(text = viewModel.R60_3.value)
-                TableCell(text = viewModel.kABS_3.value)
-            }
+//            Row() {
+//                TableCell(text = viewModel.name_1.value)
+//                TableCell(text = viewModel.specifiedMgrU_1.value)
+//                TableCell(text = viewModel.mgrU_1.value)
+//                TableCell(text = viewModel.R15_1.value)
+//                TableCell(text = viewModel.R60_1.value)
+//                TableCell(text = viewModel.kABS_1.value)
+//            }
+//            Row() {
+//                TableCell(text = viewModel.name_2.value)
+//                TableCell(text = viewModel.specifiedMgrU_2.value)
+//                TableCell(text = viewModel.mgrU_2.value)
+//                TableCell(text = viewModel.R15_2.value)
+//                TableCell(text = viewModel.R60_2.value)
+//                TableCell(text = viewModel.kABS_2.value)
+//            }
+//            Row() {
+//                TableCell(text = viewModel.name_3.value)
+//                TableCell(text = viewModel.specifiedMgrU_3.value)
+//                TableCell(text = viewModel.mgrU_3.value)
+//                TableCell(text = viewModel.R15_3.value)
+//                TableCell(text = viewModel.R60_3.value)
+//                TableCell(text = viewModel.kABS_3.value)
+//            }
 //            Column (
 //                modifier = Modifier.padding(top = 20.dp)
 //            ) {

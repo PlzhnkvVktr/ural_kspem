@@ -16,7 +16,6 @@ import cafe.adriel.voyager.navigator.Navigator
 import ru.avem.common.ProtocolBuilder
 import ru.avem.db.DBManager
 import ru.avem.modules.tests.CustomController
-import ru.avem.modules.tests.mgr.start
 import ru.avem.screens.MainScreen
 import ru.avem.viewmodels.MainScreenViewModel
 import ru.avem.viewmodels.TestScreenViewModel
@@ -44,7 +43,8 @@ fun TestNavigationBar(
             testViewModel.waiting.value
         ) {
             if (!CustomController.isTestRunning.value) {
-                start(testViewModel, mainViewModel.testItemLine)
+//                start(testViewModel, mainViewModel.testItemLine)
+                testViewModel.start(mainViewModel.testItemLine)
                 thread {
                     testViewModel.waiting.value = false
                     Thread.sleep(1000)

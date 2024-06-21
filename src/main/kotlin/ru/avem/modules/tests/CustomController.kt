@@ -45,6 +45,7 @@ object CustomController {
     var doorSCO = mutableStateOf(false)
     var ikzTI = mutableStateOf(false)
     var ikzVIU = mutableStateOf(false)
+
     var statusMGR: Int = 0
 
     var voltOnATR = 1.0
@@ -185,6 +186,10 @@ object CustomController {
         appendMessageToLog("Инициализация АВЭМ-9", LogType.MESSAGE)
         pr66.checkResponsibility()
         sleep(1000)
+        if (!pr66.isResponding) {
+            isTestRunning.value = false
+            appendMessageToLog("АВЭМ-9 не отвечает", LogType.ERROR)
+        }
 
         if (isTestRunning.value) pr66.pollVoltageAKB()
         if (isTestRunning.value && pr66.lowBattery.value) {

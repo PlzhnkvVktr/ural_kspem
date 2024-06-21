@@ -1,25 +1,17 @@
 package ru.avem.modules.models
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import ru.avem.db.TestItem
 
-data class TestObject(
-    val name: String,
-    val scheme: Boolean,
-    val power: String,
-    val u_linear: String,
-    val i: String,
-    val i_viu: String,
-    val i_mz: String,
-    val u_viu: String,
-    val u_mgr: String,
-    val t_viu: String,
-    val t_hh: String,
-    val t_mv: String,
-    val r_max: String,
-    val r_min: String,
-    val r20_max: String,
-    val r20_min: String,
-    val t: String
+data class TestItem(
+    val name: MutableState<String> = mutableStateOf(""),
+    var specifiedMgrU: MutableState<String> = mutableStateOf(""),
+    val mgrU: MutableState<String> = mutableStateOf(""),
+    val R15: MutableState<String> = mutableStateOf(""),
+    val R60: MutableState<String> = mutableStateOf(""),
+    val kABS: MutableState<String> = mutableStateOf(""),
+    val timeMGR: MutableState<String> = mutableStateOf("")
 )
 
 

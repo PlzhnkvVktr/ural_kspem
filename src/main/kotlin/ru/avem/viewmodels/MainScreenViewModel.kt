@@ -64,11 +64,10 @@ open class MainScreenViewModel : ScreenModel {
     }
 
     fun createTestItemList () {
-        if (factoryNumber1.value.isNotEmpty()) testItemList.add(SelectedTestObject(1, factoryNumber1.value, selectedTI1.value))
-        if (factoryNumber2.value.isNotEmpty()) testItemList.add(SelectedTestObject(2, factoryNumber2.value, selectedTI2.value))
-        if (factoryNumber3.value.isNotEmpty()) testItemList.add(SelectedTestObject(3, factoryNumber3.value, selectedTI3.value))
+        if (factoryNumber1.value.isNotEmpty()) testItemList.add(SelectedTestObject(0, factoryNumber1.value, selectedTI1.value))
+        if (factoryNumber2.value.isNotEmpty()) testItemList.add(SelectedTestObject(1, factoryNumber2.value, selectedTI2.value))
+        if (factoryNumber3.value.isNotEmpty()) testItemList.add(SelectedTestObject(2, factoryNumber3.value, selectedTI3.value))
         testItemLine.value = testItemList.iterator()
-//        println(testItemLine.value.next())
     }
 
 }

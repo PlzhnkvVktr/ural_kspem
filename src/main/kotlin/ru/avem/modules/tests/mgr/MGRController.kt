@@ -10,7 +10,6 @@ import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.modules.tests.CustomController.pr102
 import ru.avem.modules.tests.CustomController.pr66
-import ru.avem.modules.tests.CustomController.statusMGR
 import ru.avem.modules.tests.CustomController.testObject
 import ru.avem.modules.tests.CustomController.testObjectName
 import ru.avem.modules.tests.Test
@@ -19,24 +18,38 @@ import ru.avem.utils.getCurrentTime
 import ru.avem.viewmodels.TestScreenViewModel
 import ru.avem.modules.devices.avem.avem9.AVEM9Model
 import ru.avem.modules.tests.CustomController.initAVEM9
-import ru.avem.modules.tests.CustomController.initPR
+import ru.avem.modules.tests.CustomController.statusMGR
 import java.lang.Thread.sleep
 import kotlin.concurrent.thread
 
-fun start(viewModel: TestScreenViewModel, testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
-//    viewModel.clearFields()
 
-    thread {
-        isTestRunning.value = true
-        if (isTestRunning.value) initPR()
-        if (isTestRunning.value) initAVEM9()
-        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
-        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_2, viewModel.specifiedMgrU_2)
-        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_3, viewModel.specifiedMgrU_3)
+//fun TestScreenViewModel.startMeasurementMGR() {
+//    if (isTestRunning.value) initAVEM9()
+//    repeat(3) {
+//        if (isTestRunning.value) {
+////            startMeasurementMGR(CustomController.viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
+//        }
+//    }
+//    if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
+//    if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_2, viewModel.specifiedMgrU_2)
+//    if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_3, viewModel.specifiedMgrU_3)
+//}
 
-    }
+//fun start(viewModel: TestScreenViewModel, testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
+////    viewModel.clearFields()
+//
+//
+//    thread {
+//        isTestRunning.value = true
+////        if (isTestRunning.value) initPR()
+////        if (isTestRunning.value) initAVEM9()
+////        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_1, viewModel.specifiedMgrU_1)
+////        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_2, viewModel.specifiedMgrU_2)
+////        if (isTestRunning.value) startMeasurementMGR(viewModel, testItemLine, viewModel.name_3, viewModel.specifiedMgrU_3)
+//
+//    }
 
-}
+//}
 
 fun startMeasurementMGR (
     viewModel: TestScreenViewModel,
@@ -53,6 +66,8 @@ fun startMeasurementMGR (
         testObjectName.value = viewModel.currentTest.value?.selectedTI.toString()
         testObject = DBManager.getTI(testObjectName.value)
 
+        val idx = viewModel.currentTest.value?.order
+
         viewModel.isDialog.value = true
         while (viewModel.isDialog.value) {
             sleep(200)
@@ -64,23 +79,28 @@ fun startMeasurementMGR (
         }
         if (viewModel.isDialog.value) isTestRunning.value = false
 
+        CM.startPoll(CM.DeviceID.PR66.name, pr66.model.STATUS) { value ->
+            statusMGR = value.toInt()
+        }
+        CM.startPoll(CM.DeviceID.PR66.name, pr66.model.VOLTAGE) { value ->
+            viewModel.listTestItems[idx!!].mgrU.value = value.toString()
+        }
+        CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R15_MEAS) { value ->
+            viewModel.listTestItems[idx!!].R15.value = value.toString()
+        }
+        CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R60_MEAS) { value ->
+            viewModel.listTestItems[idx!!].R60.value = value.toString()
+        }
+        CM.startPoll(CM.DeviceID.PR66.name, pr66.model.ABSORPTION) { value ->
+            viewModel.listTestItems[idx!!].kABS.value = value.toString()
+        }
+
         if (isTestRunning.value) {
             pr102.viu1(true)
             sleep(1000)
         }
+
         if (isTestRunning.value) {
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.STATUS) { value ->
-                statusMGR = value.toInt()
-            }
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R15_MEAS) { value ->
-                viewModel.R15_1.value = value.toString()
-            }
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R60_MEAS) { value ->
-                viewModel.R60_2.value = value.toString()
-            }
-            CM.startPoll(CM.DeviceID.PR66.name, pr66.model.ABSORPTION) { value ->
-                viewModel.kABS_1.value = value.toString()
-            }
             pr66.startMeasurement(
                 AVEM9Model.MeasurementMode.Resistance, when {
                     testObject.u_mgr.toInt() == 2500 -> {
