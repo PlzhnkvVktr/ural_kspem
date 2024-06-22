@@ -10,13 +10,7 @@ import ru.avem.db.TestItem
 import ru.avem.modules.models.SelectedTestObject
 import ru.avem.viewmodels.MainScreenViewModel
 
-//interface Test : Screen {
-//    val testName: String
-//}
-
-abstract class Test (
-
-): Screen, MainScreenViewModel() {
+abstract class Test (): Screen, MainScreenViewModel() {
     open val testName: String = ""
 
     companion object {

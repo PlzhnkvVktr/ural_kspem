@@ -5,8 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import cafe.adriel.voyager.core.registry.screenModule
+import cafe.adriel.voyager.navigator.Navigator
+import kotlinx.coroutines.launch
 import ru.avem.db.DBManager
+import ru.avem.enums.TestEnum
 import ru.avem.modules.models.SelectedTestObject
+import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.Test
 import ru.avem.modules.tests.hh.HHScreen
 import ru.avem.modules.tests.ikas.IKASScreen
@@ -17,14 +21,6 @@ import ru.avem.modules.tests.viu.VIUScreen
 open class MainScreenViewModel : ScreenModel {
     var allCheckedButton: MutableState<Boolean> = mutableStateOf(false)
     var startTestButton: MutableState<Boolean> = mutableStateOf(false)
-
-    enum class TestEnum(var testName: String) {
-        nameMGR("Испытание изоляции обмоток относительно корпуса и между фазами обмотки на электрическую прочность"),
-        nameVIU("Испытание изоляции обмоток относительно корпуса и между фазами обмотки на электрическую прочность."),
-        nameIKAS("Измерение сопротивления обмоток постоянному току в практически холодном состоянии."),
-        nameMV("Проверка правильности соединения обмоток и обнаружение витковых замыканий."),
-        nameHH("Контроль равенства токов по фазам."),
-    }
 
     var testList = mutableListOf<Test>()
     var testsLine = mutableStateOf(testList.iterator())
@@ -53,11 +49,55 @@ open class MainScreenViewModel : ScreenModel {
     var factoryNumber2 = mutableStateOf("")
     var factoryNumber3 = mutableStateOf("")
 
+    fun checkboxClick (
+        item: Map.Entry<TestEnum, MutableState<Boolean>>,
+        found: Test?
+    ) {
+        if (found != null) {
+            testList.remove(found)
+        } else {
+            checkTest(item.key)
+        }
+
+        testsLine.value = testList.iterator()
+        startTestButton.value = testsLine.value.hasNext()
+    }
+    fun selectAll () {
+        screenModelScope.launch {
+            if (!allCheckedButton.value) {
+                allCheckedButton.value = true
+                testList.clear()
+                testMap.forEach { item ->
+                    item.value.value = true
+                    checkTest(item.key)
+                }
+            } else {
+                allCheckedButton.value = false
+                testMap.forEach { item -> item.value.value = false }
+                testList.clear()
+            }
+            testsLine.value = testList.iterator()
+            startTestButton.value = testsLine.value.hasNext()
+        }
+    }
+
+    fun startTests (navigator: Navigator) {
+        screenModelScope.launch {
+            createTestItemList()
+            CustomController.testObjectName.value = selectedTI1.value
+            CustomController.testObject = DBManager.getTI(CustomController.testObjectName.value)
+            navigator.push(testsLine.value.next())
+            testMap.forEach { item -> item.value.value = false }
+            startTestButton.value = false
+            allCheckedButton.value = false
+        }
+    }
+
     fun checkTest (item: TestEnum): Boolean {
         return when (item) {
             TestEnum.nameMGR -> testList.add(MGRScreen(this))
-            TestEnum.nameVIU -> testList.add(IKASScreen(this))
-            TestEnum.nameIKAS -> testList.add(VIUScreen(this))
+            TestEnum.nameVIU -> testList.add(VIUScreen(this))
+            TestEnum.nameIKAS -> testList.add(IKASScreen(this))
             TestEnum.nameHH -> testList.add(HHScreen(this))
             TestEnum.nameMV -> testList.add(MVScreen(this))
         }

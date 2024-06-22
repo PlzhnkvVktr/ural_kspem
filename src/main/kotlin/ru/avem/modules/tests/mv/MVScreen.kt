@@ -3,10 +3,6 @@ package ru.avem.modules.tests.mv
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.sharp.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,20 +12,15 @@ import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import ru.avem.common.ProtocolBuilder
 import ru.avem.components.*
 import ru.avem.modules.tests.Test
 import ru.avem.components.LogsList
-import ru.avem.screens.MainScreen
 import ru.avem.viewmodels.MainScreenViewModel
 import ru.avem.components.SpecifiedParamsList
-import ru.avem.db.DBManager.addNewProtocol
+import ru.avem.enums.TestEnum
 import ru.avem.modules.tests.CustomController.isStartButton
 import ru.avem.modules.tests.CustomController.isTestRunning
-import ru.avem.modules.tests.CustomController.logMessages
-import ru.avem.modules.tests.CustomController.testObject
 import ru.avem.viewmodels.TestScreenViewModel
-import kotlin.concurrent.thread
 
 
 class MVScreen(private var mainViewModel: MainScreenViewModel) : Test() {
@@ -69,9 +60,10 @@ class MVScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         TestNavigationBar(
                             mainViewModel,
                             viewModel,
-                            navigator
+                            navigator,
+                            TestEnum.nameMV
                         )
-                        LogsList()
+                        LogsList(viewModel.loggerScope)
                     }
                     if (viewModel.isDialog.value) {
                         TestDialog(

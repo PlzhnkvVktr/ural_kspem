@@ -57,28 +57,16 @@ class MainScreen() : Screen {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column (
-                            modifier = Modifier.width(200.dp).fillMaxHeight(.6f), verticalArrangement = Arrangement.SpaceBetween
+                            modifier = Modifier
+                                .width(200.dp)
+                                .fillMaxHeight(.6f),
+                            verticalArrangement = Arrangement.SpaceBetween
                         ){
                             ActionButton(
                                 text = if (!viewModel.allCheckedButton.value) "Выбрать все" else "Отменить все",
-                                pic = if (!viewModel.allCheckedButton.value) Icons.Filled.Check else Icons.Filled.Close) {
-                                thread {
-                                    if (!viewModel.allCheckedButton.value) {
-                                        viewModel.allCheckedButton.value = true
-                                        viewModel.testList.clear()
-                                        viewModel.testMap.forEach { item ->
-                                            item.value.value = true
-                                            viewModel.checkTest(item.key)
-                                        }
-                                    } else {
-                                        viewModel.allCheckedButton.value = false
-                                        viewModel.testMap.forEach { item -> item.value.value = false }
-                                        viewModel.testList.clear()
-                                    }
-                                    viewModel.testsLine.value = viewModel.testList.iterator()
-                                    viewModel.startTestButton.value = viewModel.testsLine.value.hasNext()
-                                }
-                            }
+                                pic = if (!viewModel.allCheckedButton.value) Icons.Filled.Check else Icons.Filled.Close,
+                                onClick = viewModel::selectAll
+                            )
                             ActionButton(
                                 text = "Старт",
                                 pic = Icons.Filled.PlayArrow,
@@ -87,20 +75,9 @@ class MainScreen() : Screen {
                                                 && (viewModel.factoryNumber1.value.isNotEmpty() || viewModel.card1.value)
 //                                                || (viewModel.factoryNumber2.value.isNotEmpty() && viewModel.card2.value)
 //                                                || (viewModel.factoryNumber3.value.isNotEmpty() && viewModel.card3.value)
-                                        )
-                            ) {
-                                if (viewModel.testsLine.value.hasNext()) {
-                                    thread {
-                                        viewModel.createTestItemList()
-                                        CustomController.testObjectName.value = viewModel.selectedTI1.value
-                                        CustomController.testObject = DBManager.getTI(CustomController.testObjectName.value)
-                                        navigator.push(viewModel.testsLine.value.next())
-                                        viewModel.testMap.forEach { item -> item.value.value = false }
-                                        viewModel.startTestButton.value = false
-                                        viewModel.allCheckedButton.value = false
-                                    }
-                                }
-                            }
+                                        ),
+                                onClick = { if (viewModel.testsLine.value.hasNext()) viewModel.startTests(navigator) }
+                            )
                         }
                         TestListContainer(viewModel)
                     }

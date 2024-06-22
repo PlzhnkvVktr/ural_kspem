@@ -18,51 +18,71 @@ import ru.avem.viewmodels.MainScreenViewModel
 @Composable
 fun TestObjectCard (viewModel: MainScreenViewModel, factoryNumber: MutableState<String>, selectedTI: MutableState<String>, isVisible: MutableState<Boolean> = mutableStateOf(true)) {
 
-
     Card(
-        modifier = Modifier.width(650.dp).height(200.dp).padding(15.dp),
-        border = BorderStroke(2.dp, Color.Gray)
+        modifier = Modifier
+            .width(620.dp)
+            .height(450.dp)
+            .padding(
+                top = 70.dp,
+                start = 15.dp,
+                end = 15.dp
+            ),
+        border = BorderStroke(2.dp, Color.Gray),
+        elevation = 10.dp
     ) {
         if (isVisible.value) {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
-                    modifier = Modifier.fillMaxWidth(0.88f).fillMaxHeight(),
+                    modifier = Modifier.fillMaxWidth(0.78f).fillMaxHeight(),
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth().height(70.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround,
                         Alignment.CenterVertically
                     ) {
-                        Text(
-                            modifier = Modifier.width(120.dp),
-                            text = "Заводской номер",
-                            style = MaterialTheme.typography.h5,)
-                        OutlinedTextField(
-                            value = factoryNumber.value,
-                            modifier = Modifier.fillMaxWidth(0.8f).height(56.dp),
-                            textStyle = MaterialTheme.typography.h5,
-                            placeholder = {
-                                Text(
-                                    text = "Введите серийный номер",
-                                    style = MaterialTheme.typography.subtitle1
-                                ) },
-                            onValueChange = { factoryNumber.value = it }
-                        )
+                        Column(
+                            modifier = Modifier.fillMaxHeight(.5f)
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(10.dp),
+                                text = "Заводской номер",
+                                style = MaterialTheme.typography.h5
+                            )
+                            OutlinedTextField(
+                                value = factoryNumber.value,
+                                modifier = Modifier.fillMaxWidth(0.8f),
+                                textStyle = MaterialTheme.typography.h5,
+                                placeholder = {
+                                    Text(
+                                        text = "Введите серийный номер",
+                                        style = MaterialTheme.typography.h5
+                                    )
+                                              },
+                                onValueChange = { factoryNumber.value = it }
+                            )
+                        }
+
                     }
                     Row(
-                        modifier = Modifier.fillMaxWidth().height(70.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround,
                         Alignment.CenterVertically
                     ) {
-                        Text(
-                            modifier = Modifier.width(120.dp),
-                            text = "Тип",
-                            style = MaterialTheme.typography.h5
-                        )
-                        ComboBox(selectedTI, modifier = Modifier.fillMaxWidth(0.8f), items = viewModel.typesTI)
+                        Column(
+                            modifier = Modifier.fillMaxHeight()
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(10.dp),
+                                text = "Тип",
+                                style = MaterialTheme.typography.h5
+                            )
+                            ComboBox(selectedTI, modifier = Modifier.fillMaxWidth(0.8f).height(65.dp), items = viewModel.typesTI)
+                        }
+
                     }
                 }
                 Column(
@@ -78,7 +98,7 @@ fun TestObjectCard (viewModel: MainScreenViewModel, factoryNumber: MutableState<
                         Icon(
                             Icons.Filled.Delete,
                             contentDescription = "Удалить",
-                            modifier = Modifier.size(40.dp)
+                            modifier = Modifier.size(60.dp)
                         )
                     }
                 }
@@ -90,7 +110,7 @@ fun TestObjectCard (viewModel: MainScreenViewModel, factoryNumber: MutableState<
                 Icon(
                     Icons.Filled.Add,
                     contentDescription = "Добавить",
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier.size(100.dp)
                 )
             }
         }

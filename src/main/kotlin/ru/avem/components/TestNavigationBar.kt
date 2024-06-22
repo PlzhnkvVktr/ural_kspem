@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
 import ru.avem.common.ProtocolBuilder
 import ru.avem.db.DBManager
+import ru.avem.enums.TestEnum
 import ru.avem.modules.tests.CustomController
 import ru.avem.screens.MainScreen
 import ru.avem.viewmodels.MainScreenViewModel
@@ -25,10 +26,13 @@ import kotlin.concurrent.thread
 fun TestNavigationBar(
     mainViewModel: MainScreenViewModel,
     testViewModel: TestScreenViewModel,
-    navigator: Navigator
+    navigator: Navigator,
+    testName: TestEnum
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(10.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         ActionButton("Отменить все", Icons.Filled.Close) {
@@ -43,23 +47,12 @@ fun TestNavigationBar(
             testViewModel.waiting.value
         ) {
             if (!CustomController.isTestRunning.value) {
-//                start(testViewModel, mainViewModel.testItemLine)
-                testViewModel.start(mainViewModel.testItemLine)
-                thread {
-                    testViewModel.waiting.value = false
-                    Thread.sleep(1000)
-                    testViewModel.waiting.value = true
-                }
+                testViewModel.start(mainViewModel.testItemLine, testName)
             } else {
                 CustomController.isTestRunning.value = false
-                thread {
-                    testViewModel.waiting.value = false
-                    Thread.sleep(1000)
-                    testViewModel.waiting.value = true
-                }
             }
         }
-        ActionButton("Следующий", Icons.AutoMirrored.Filled.ArrowForward, !CustomController.isTestRunning.value) {
+        ActionButton(if (mainViewModel.testsLine.value.hasNext()) "Следующий" else "Завершить", Icons.AutoMirrored.Filled.ArrowForward, !CustomController.isTestRunning.value) {
             if (mainViewModel.testsLine.value.hasNext()) {
                 navigator.replace(mainViewModel.testsLine.value.next())
             } else {
@@ -69,7 +62,6 @@ fun TestNavigationBar(
                 ProtocolBuilder.clear()
             }
             CustomController.logMessages.clear()
-
         }
     }
 }

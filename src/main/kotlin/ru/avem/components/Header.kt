@@ -14,7 +14,8 @@ fun Header(
     isAdmin: Boolean = AppConfig.params.isAdmin
 ) {
     Row (
-        Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
         HeaderButton("Испытания", MainScreen())
         HeaderButton("Объкт испытания", EditorOIScreen())

@@ -3,6 +3,9 @@ package ru.avem.modules.tests
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.avem.common.af
 import ru.avem.common.repos.AppConfig
 import ru.avem.db.TestItem
@@ -115,20 +118,20 @@ object CustomController {
         ktrAmperage = 1.0
     }
 
-    fun initPR() {
+    suspend fun initPR() {
         pr102.checkResponsibility()
-        appendMessageToLog("${("Initialization")} БСУ...", LogType.MESSAGE)
+        appendMessageToLog("Инициализация БСУ...", LogType.MESSAGE)
         isStartPressed.value = false
         isStopPressed.value = false
         var stateLock = false
         var count = 0
         if (!pr102.isResponding) {
-            appendMessageToLog("ПР102 ${("does not respond")}", LogType.ERROR)
+            appendMessageToLog("ПР102 не отвечает", LogType.ERROR)
             isTestRunning.value = false
         } else {
             pr102.offAllKMs()
             initWatchDogDD2()
-            sleep(1000)
+            delay(1000)
             CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.DI_01_16_RAW) { value ->
                 isStopPressed.value = value.toShort() and 1 < 1   // 1
                 isStartPressed.value = value.toShort() and 2 < 1   // 2
@@ -139,12 +142,12 @@ object CustomController {
                 ikzVIU.value = value.toShort() and 64 < 1  // 7
 //                             = value.toShort() and 128 > 0 // 8
             }
-            sleep(1000)
-            thread(isDaemon = true) {
+            delay(1000)
+//            scope.launch {
                 while (isTestRunning.value) {
-                    sleep(100)
+                    delay(100)
                     if (!pr102.isResponding) {
-                        appendMessageToLog("ПР102 ${("does not respond")}", LogType.ERROR)
+                        appendMessageToLog("ПР102 не отвечает", LogType.ERROR)
                         isTestRunning.value = false
                     }
                     if (!isStopPressed.value) {
@@ -178,7 +181,7 @@ object CustomController {
                     }
                 }
                 stopTestRunning()
-            }
+//            }
         }
     }
 

@@ -38,7 +38,7 @@ fun start(viewModel: IKASViewModel, testItemLine: MutableState<MutableIterator<S
         viewModel.warningWU.value = false
         if (isTestRunning.value) {
             appendMessageToLog(testItemLine.value.hasNext().toString(), LogType.MESSAGE)
-            CustomController.initPR()
+//            CustomController.initPR()
         }
 
 

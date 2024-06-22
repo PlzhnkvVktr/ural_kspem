@@ -7,13 +7,14 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.avem.enums.TestEnum
 import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.CustomController.logMessages
 import ru.avem.viewmodels.MainScreenViewModel
 
 class IKASViewModel() : ScreenModel {
 
-    val nameTest = MainScreenViewModel.TestEnum.nameIKAS.testName
+    val nameTest = TestEnum.nameIKAS.testName
     var warningUV = mutableStateOf(false)
     var warningVW = mutableStateOf(false)
     var warningWU = mutableStateOf(false)

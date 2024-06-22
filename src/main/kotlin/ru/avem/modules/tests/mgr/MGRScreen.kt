@@ -3,33 +3,23 @@ package ru.avem.modules.tests.mgr
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.sharp.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import ru.avem.common.ProtocolBuilder
 import ru.avem.components.*
 import ru.avem.modules.tests.Test
 import ru.avem.components.LogsList
-import ru.avem.screens.MainScreen
 import ru.avem.viewmodels.MainScreenViewModel
 import ru.avem.components.SpecifiedParamsList
-import ru.avem.db.DBManager.addNewProtocol
+import ru.avem.enums.TestEnum
 import ru.avem.modules.tests.CustomController.isStartButton
 import ru.avem.modules.tests.CustomController.isTestRunning
-import ru.avem.modules.tests.CustomController.logMessages
-import ru.avem.modules.tests.CustomController.testObject
 import ru.avem.viewmodels.TestScreenViewModel
-import kotlin.concurrent.thread
 
 
 class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
@@ -42,25 +32,26 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navigator = LocalNavigator.currentOrThrow
 
-        LifecycleEffect(onStarted = {
-//            viewModel.clearFields()
-        })
-
         Column {
             Scaffold(
                 scaffoldState = scaffoldState,
                 topBar = { },
                 content = {
                     Column(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row(
-                            modifier = Modifier.border(2.dp, Color.Black)
+                            modifier = Modifier
+                                .border(2.dp, Color.Black)
                         ) {
                             SpecifiedParamsList(testObjectInfo)
                             Column(
-                                modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.8f).border(1.dp, Color.LightGray)
+                                modifier = Modifier
+                                    .fillMaxHeight(0.6f)
+                                    .fillMaxWidth(0.8f)
+                                    .border(1.dp, Color.LightGray)
                             ) {
                                 MGRTestWindow(viewModel)
                             }
@@ -69,9 +60,10 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         TestNavigationBar(
                             mainViewModel,
                             viewModel,
-                            navigator
+                            navigator,
+                            TestEnum.nameMGR,
                         )
-                        LogsList()
+                        LogsList(viewModel.loggerScope)
                     }
                     if (viewModel.isDialog.value) {
                         TestDialog(
@@ -87,8 +79,7 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     if (isStartButton.value) {
                         TestDialog()
                     }
-                },
-                bottomBar = { }
+                }
             )
         }
     }

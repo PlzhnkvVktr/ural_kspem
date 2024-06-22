@@ -22,39 +22,30 @@ import ru.avem.viewmodels.MainScreenViewModel
 fun TestListContainer(viewModel: MainScreenViewModel) {
 
     Column(
-        modifier = Modifier.fillMaxWidth(0.8f).border(2.dp, Color.DarkGray)
+        modifier = Modifier
+            .fillMaxWidth(0.82f)
+            .border(3.dp, Color.DarkGray)
+            .padding(40.dp)
     ) {
         viewModel.testMap.forEach { item ->
             Row(
-                modifier = Modifier.fillMaxWidth().height(70.dp).clickable {
-                    item.value.value = !item.value.value
-
-                    val found = viewModel.testList.find { it.testName == item.key.testName }
-                    if (found != null) {
-                        viewModel.testList.remove(found)
-                    } else {
-                        viewModel.checkTest(item.key)
-                    }
-
-                    viewModel.testsLine.value = viewModel.testList.iterator()
-                    viewModel.startTestButton.value = viewModel.testsLine.value.hasNext()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(85.dp)
+                    .padding(5.dp)
+                    .clickable {
+                        item.value.value = !item.value.value
+                        val found = viewModel.testList.find { it.testName == item.key.testName }
+                        viewModel.checkboxClick(item, found)
                 },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(
                     checked = item.value.value,
-                    onCheckedChange = {
+                    onCheckedChange = { it ->
                         item.value.value = it
-
                         val found = viewModel.testList.find { it.testName == item.key.testName }
-                        if (found != null) {
-                            viewModel.testList.remove(found)
-                        } else {
-                            viewModel.checkTest(item.key)
-                        }
-
-                        viewModel.testsLine.value = viewModel.testList.iterator()
-                        viewModel.startTestButton.value = viewModel.testsLine.value.hasNext()
+                        viewModel.checkboxClick(item, found)
                     }
                 )
                     Text(item.key.testName, fontSize = 26.sp)

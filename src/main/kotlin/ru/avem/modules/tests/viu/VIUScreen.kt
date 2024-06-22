@@ -3,8 +3,6 @@ package ru.avem.modules.tests.viu
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.sharp.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +17,7 @@ import ru.avem.modules.tests.Test
 import ru.avem.components.LogsList
 import ru.avem.viewmodels.MainScreenViewModel
 import ru.avem.components.SpecifiedParamsList
+import ru.avem.enums.TestEnum
 import ru.avem.modules.tests.CustomController.isStartButton
 import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.viewmodels.TestScreenViewModel
@@ -61,9 +60,10 @@ class VIUScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                         TestNavigationBar(
                             mainViewModel,
                             viewModel,
-                            navigator
+                            navigator,
+                            TestEnum.nameVIU
                         )
-                        LogsList()
+                        LogsList(viewModel.loggerScope)
                     }
                     if (viewModel.isDialog.value) {
                         TestDialog(

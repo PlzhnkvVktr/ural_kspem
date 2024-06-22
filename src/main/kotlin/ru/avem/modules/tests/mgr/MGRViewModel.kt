@@ -5,6 +5,7 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.avem.enums.TestEnum
 import ru.avem.modules.models.SelectedTestObject
 import ru.avem.modules.tests.CustomController.logMessages
 import ru.avem.modules.tests.Test
@@ -12,7 +13,7 @@ import ru.avem.viewmodels.MainScreenViewModel
 
 class MGRViewModel(): ScreenModel {
 
-    val nameMGR = MainScreenViewModel.TestEnum.nameMGR.testName
+    val nameMGR = TestEnum.nameMGR.testName
 
     var isDialog = mutableStateOf(false)
     var isPressStart = mutableStateOf(false)

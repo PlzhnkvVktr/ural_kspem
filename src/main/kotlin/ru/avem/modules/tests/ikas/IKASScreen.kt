@@ -4,11 +4,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.sharp.Stop
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -16,23 +11,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import ru.avem.common.ProtocolBuilder
 import ru.avem.components.*
 import ru.avem.components.LogsList
 import ru.avem.modules.tests.Test
-import ru.avem.screens.MainScreen
 import ru.avem.viewmodels.MainScreenViewModel
-import ru.avem.db.DBManager.addNewProtocol
+import ru.avem.enums.TestEnum
 import ru.avem.modules.tests.CustomController.isStartButton
 import ru.avem.modules.tests.CustomController.isTestRunning
-import ru.avem.modules.tests.CustomController.testObject
 import ru.avem.viewmodels.TestScreenViewModel
-import java.lang.Thread.sleep
-import kotlin.concurrent.thread
 
 
 class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
@@ -102,9 +91,10 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     TestNavigationBar(
                         mainViewModel,
                         viewModel,
-                        navigator
+                        navigator,
+                        TestEnum.nameIKAS
                     )
-                    LogsList()
+                    LogsList(viewModel.loggerScope)
                 }
                 if (isStartButton.value) {
                     TestDialog()

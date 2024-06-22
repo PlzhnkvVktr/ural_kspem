@@ -2,12 +2,11 @@ package ru.avem.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight.Companion.W700
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -21,8 +20,14 @@ fun HeaderButton (text: String, screen: Screen) {
         onClick = {
             navigator.replace(screen)
         },
-        modifier = Modifier.width(250.dp)
+        modifier = Modifier
+            .width(250.dp),
         ) {
-        Text(text, style = MaterialTheme.typography.h6)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.h5,
+            color = Color.Black,
+            fontWeight = W700
+        )
     }
 }
