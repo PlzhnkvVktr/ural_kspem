@@ -2,12 +2,14 @@ package ru.avem.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
@@ -45,10 +47,10 @@ fun ParamOIRow(
         Column(
             modifier = Modifier.fillMaxWidth(0.6f)
         ) {
-            Text(text = text, style = MaterialTheme.typography.subtitle1)
+            Text(text = text, style = MaterialTheme.typography.h5)
         }
         Column(
-            modifier = Modifier.fillMaxWidth(0.6f)
+            modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             OutlinedTextField(
                 value = if (!isNewTI) param.value else newParam.value,

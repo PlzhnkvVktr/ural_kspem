@@ -33,10 +33,6 @@ class HHScreen(private var mainViewModel: MainScreenViewModel) : Test() {
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navigator = LocalNavigator.currentOrThrow
 
-        LifecycleEffect(onStarted = {
-//            viewModel.clearFields()
-        })
-
         Column {
             Scaffold(
                 scaffoldState = scaffoldState,

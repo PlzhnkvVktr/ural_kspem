@@ -2,20 +2,16 @@ package ru.avem.modules.tests.mgr
 
 import androidx.compose.runtime.MutableState
 import kotlinx.coroutines.delay
-import ru.avem.common.ProtocolBuilder
 import ru.avem.db.DBManager
 import ru.avem.modules.common.logger.LogType
 import ru.avem.modules.devices.CM
 import ru.avem.modules.models.SelectedTestObject
-import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.modules.tests.CustomController.pr102
 import ru.avem.modules.tests.CustomController.pr66
 import ru.avem.modules.tests.CustomController.testObject
 import ru.avem.modules.tests.CustomController.testObjectName
 import ru.avem.modules.tests.Test
-import ru.avem.utils.getCurrentDate
-import ru.avem.utils.getCurrentTime
 import ru.avem.viewmodels.TestScreenViewModel
 import ru.avem.modules.devices.avem.avem9.AVEM9Model
 import ru.avem.modules.tests.CustomController.appendMessageToLog
@@ -51,10 +47,10 @@ suspend fun TestScreenViewModel.startMeasurementMGR(testItemLine: MutableState<M
                 listTestItems[idx].mgrU.value = value.toString()
             }
             CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R15_MEAS) { value ->
-                listTestItems[idx].R15.value = value.toString()
+                listTestItems[idx].r15.value = value.toString()
             }
             CM.startPoll(CM.DeviceID.PR66.name, pr66.model.R60_MEAS) { value ->
-                listTestItems[idx].R60.value = value.toString()
+                listTestItems[idx].r60.value = value.toString()
             }
             CM.startPoll(CM.DeviceID.PR66.name, pr66.model.ABSORPTION) { value ->
                 listTestItems[idx].kABS.value = value.toString()

@@ -76,11 +76,11 @@ object CustomController {
         }
     }
 
-    fun initButtonPost() {
+    suspend fun initButtonPost() {
         isStartButton.value = true
         var i = 0
         while (!isStartPressed.value && isTestRunning.value && pr102.isResponding) {
-            sleep(100)
+            delay(100)
 
             if (isStartPressed.value && isStartButton.value) {
                 isStartButton.value = false
@@ -89,7 +89,7 @@ object CustomController {
             if (!isStopPressed.value) {
                 isStartButton.value = false
                 isTestRunning.value = false
-                appendMessageToLog("stop", LogType.ERROR)
+                appendMessageToLog("Испытание остановлено", LogType.ERROR)
             }
         }
     }
@@ -215,100 +215,100 @@ object CustomController {
 //        }
 //    }
 
-    fun initARN() {
-        appendMessageToLog("${("Initialization")} ATP...", LogType.MESSAGE)
+    suspend fun initARN() {
+        appendMessageToLog("Инициализация ATP...", LogType.MESSAGE)
         ATR.checkResponsibility()
-        sleep(1000)
+        delay(1000)
 
         if (ATR.isResponding) {
             CM.startPoll(CM.DeviceID.GV240.name, ATRModel.U_RMS_REGISTER) { value ->
                 voltOnATR = value.toDouble()
                 if (!ATR.isResponding) {
-                    appendMessageToLog("АРН ${("does not respond")}", LogType.ERROR)
+                    appendMessageToLog("АРН не отвечает", LogType.ERROR)
                     isTestRunning.value = false
                 }
             }
         } else {
-            appendMessageToLog("АРН ${("does not respond")}", LogType.ERROR)
+            appendMessageToLog("АРН не отвечает", LogType.ERROR)
             isTestRunning.value = false
         }
     }
 
-    fun initPM130(
-        Uuv: MutableState<String>? = null,
-        Uvw: MutableState<String>? = null,
-        Uwu: MutableState<String>? = null,
-        Iu: MutableState<String>? = null,
-        Iv: MutableState<String>? = null,
-        Iw: MutableState<String>? = null,
-        P1: MutableState<String>? = null,
-        cos: MutableState<String>? = null,
-        F: MutableState<String>? = null
+    suspend fun initPM130(
+        u_uv: MutableState<String>? = null,
+        u_vw: MutableState<String>? = null,
+        u_wu: MutableState<String>? = null,
+        i_u: MutableState<String>? = null,
+        i_v: MutableState<String>? = null,
+        i_w: MutableState<String>? = null,
+//        P1: MutableState<String>? = null,
+//        cos: MutableState<String>? = null,
+//        F: MutableState<String>? = null
         ) {
-        appendMessageToLog("${("Initialization")} PM130...", LogType.MESSAGE)
+        appendMessageToLog("Инициализация PM130...", LogType.MESSAGE)
         pm130.checkResponsibility()
 
         if (isTestRunning.value) sleep(1000)
         if (!pm130.isResponding) {
-            appendMessageToLog("PM130 ${("does not respond")}", LogType.ERROR)
+            appendMessageToLog("PM130 не отвечает", LogType.ERROR)
             isTestRunning.value = false
         }
 
-        if (Uuv != null && Uvw != null && Uwu != null) {
+        if (u_uv != null && u_vw != null && u_wu != null) {
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_AB_REGISTER) { value ->
-                Uuv.value = (value.toDouble() * ktrVoltage).af()
+                u_uv.value = (value.toDouble() * ktrVoltage).af()
                 if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
                     appendMessageToLog(("Overvoltage"), LogType.ERROR)
                     isTestRunning.value = false
                 }
                 if (!pm130.isResponding && isTestRunning.value) {
-                    appendMessageToLog("PM130 ${("does not respond")}", LogType.ERROR)
+                    appendMessageToLog("PM130 не отвечает", LogType.ERROR)
                     isTestRunning.value = false
                 }
             }
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_BC_REGISTER) { value ->
-                Uvw.value = (value.toDouble() * ktrVoltage).af()
+                u_vw.value = (value.toDouble() * ktrVoltage).af()
                 if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
                     appendMessageToLog(("Overvoltage"), LogType.ERROR)
                     isTestRunning.value = false
                 }
             }
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_CA_REGISTER) { value ->
-                Uwu.value = (value.toDouble() * ktrVoltage).af()
+                u_wu.value = (value.toDouble() * ktrVoltage).af()
                 voltAverage =
-                    (Uuv.value.toDoubleOrDefault(0.0)
-                            + Uvw.value.toDoubleOrDefault(0.0)
-                            + Uwu.value.toDoubleOrDefault(0.0)) / 3 * ktrVoltage
+                    (u_uv.value.toDoubleOrDefault(0.0)
+                            + u_vw.value.toDoubleOrDefault(0.0)
+                            + u_wu.value.toDoubleOrDefault(0.0)) / 3 * ktrVoltage
                 if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
                     appendMessageToLog(("Overvoltage"), LogType.ERROR)
                     isTestRunning.value = false
                 }
             }
         }
-        if (Iu != null && Iv != null && Iw != null) {
+        if (i_u != null && i_v != null && i_w != null) {
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_A_REGISTER) {
-                Iu.value = (it.toDouble() * ktrAmperage).af()
+                i_u.value = (it.toDouble() * ktrAmperage).af()
             }
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_B_REGISTER) {
-                Iv.value = (it.toDouble() * ktrAmperage).af()
+                i_v.value = (it.toDouble() * ktrAmperage).af()
             }
             CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_C_REGISTER) {
-                Iw.value = (it.toDouble() * ktrAmperage).af()
+                i_w.value = (it.toDouble() * ktrAmperage).af()
             }
         }
-        if (P1 != null) {
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.P_REGISTER) {
-                P1.value = abs(it.toDouble() * ktrAmperage * ktrVoltage).af()
-            }
-        }
-        if (cos != null) {
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.COS_REGISTER) {
-                cos.value = abs(it.toDouble()).af()
-            }
-        }
-        if (F != null) {
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.F_REGISTER) { F.value = it.af() }
-        }
+//        if (P1 != null) {
+//            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.P_REGISTER) {
+//                P1.value = abs(it.toDouble() * ktrAmperage * ktrVoltage).af()
+//            }
+//        }
+//        if (cos != null) {
+//            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.COS_REGISTER) {
+//                cos.value = abs(it.toDouble()).af()
+//            }
+//        }
+//        if (F != null) {
+//            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.F_REGISTER) { F.value = it.af() }
+//        }
     }
 
 //    fun chooseCurrentStage(

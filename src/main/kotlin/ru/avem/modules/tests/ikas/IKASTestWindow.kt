@@ -34,24 +34,7 @@ fun IKASTestWindow (viewModel: TestScreenViewModel) {
                 TableCell(text = "R VW, Ом")
                 TableCell(text = "R WU, Ом")
             }
-            Row() {
-                TableCell(text = "")
-                TableCell(text = viewModel.Ruv1.value)
-                TableCell(text = viewModel.Rvw1.value)
-                TableCell(text = viewModel.Rwu1.value)
-            }
-            Row() {
-                TableCell(text = "")
-                TableCell(text = viewModel.Ruv1.value)
-                TableCell(text = viewModel.Rvw1.value)
-                TableCell(text = viewModel.Rwu1.value)
-            }
-            Row() {
-                TableCell(text = "")
-                TableCell(text = viewModel.Ruv1.value)
-                TableCell(text = viewModel.Rvw1.value)
-                TableCell(text = viewModel.Rwu1.value)
-            }
+
             Column (
                 modifier = Modifier.padding(top = 20.dp)
             ) {
@@ -62,27 +45,7 @@ fun IKASTestWindow (viewModel: TestScreenViewModel) {
                     TableCell(text = "R W, Ом")
                     TableCell(text = "Разница")
                 }
-                Row() {
-                    TableCell(text = "")
-                    TableCell(text = viewModel.calcUV.value)
-                    TableCell(text = viewModel.calcVW.value)
-                    TableCell(text = viewModel.calcWU.value)
-                    TableCell(text = viewModel.calcWU.value)
-                }
-                Row() {
-                    TableCell(text = "")
-                    TableCell(text = viewModel.calcUV.value)
-                    TableCell(text = viewModel.calcVW.value)
-                    TableCell(text = viewModel.calcWU.value)
-                    TableCell(text = viewModel.calcWU.value)
-                }
-                Row() {
-                    TableCell(text = "")
-                    TableCell(text = viewModel.calcUV.value)
-                    TableCell(text = viewModel.calcVW.value)
-                    TableCell(text = viewModel.calcWU.value)
-                    TableCell(text = viewModel.calcWU.value)
-                }
+
             }
             Column (
                 modifier = Modifier.padding(top = 20.dp)

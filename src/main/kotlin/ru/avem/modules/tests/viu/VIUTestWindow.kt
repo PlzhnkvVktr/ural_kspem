@@ -25,25 +25,13 @@ fun VIUTestWindow (viewModel: TestScreenViewModel) {
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
                 Text(text = viewModel.nameVIU, style = MaterialTheme.typography.h5)
             }
-//            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-//                Text(text = "Номинальные параметры", style = MaterialTheme.typography.h6)
-//            }
-//            Row(Modifier.background(Color.Gray)) {
-//                TableCell(text = "Um")
-//            }
-//            Row(Modifier.padding(bottom = 20.dp)) {
-//                TableCell(text = viewModel.specifiedMgrU.value)
-//            }
+
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
                 Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
             }
             Row(Modifier.background(Color.Gray)) {
                 TableCell(text = "Наименование")
-                TableCell(text = "U номинальное")
-                TableCell(text = "U")
-                TableCell(text = "R15, Ом")
-                TableCell(text = "R60, Ом")
-                TableCell(text = "Abs")
+
             }
 //            Row() {
 //                TableCell(text = viewModel.name_1.value)

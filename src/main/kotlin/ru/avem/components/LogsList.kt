@@ -20,9 +20,6 @@ import ru.avem.modules.tests.CustomController.logMessages
 @Composable
 fun LogsList(screenModelScope: CoroutineScope) {
     val logScrollState = rememberLazyListState()
-//    val logMessages = mutableStateListOf<LogMessage>()
-    var size = 0
-//    val scope = rememberCoroutineScope()
 
     ScrollableLazyColumn(
         modifier = Modifier

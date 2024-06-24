@@ -13,11 +13,8 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import ru.avem.components.*
 import ru.avem.db.DBManager
-import ru.avem.db.DBManager.addTI
-import ru.avem.db.DBManager.deleteTestItemById
 import ru.avem.db.DBManager.getAllTI
 import ru.avem.viewmodels.EditorOIScreenViewModel
-import ru.avem.viewmodels.MainScreenViewModel
 
 class EditorOIScreen() : Screen {
 
@@ -25,7 +22,6 @@ class EditorOIScreen() : Screen {
     override fun Content() {
 
         val viewModel = rememberScreenModel { EditorOIScreenViewModel() }
-        val mainViewModel = rememberScreenModel { MainScreenViewModel() }
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
 
         viewModel.addNewTI.value = false

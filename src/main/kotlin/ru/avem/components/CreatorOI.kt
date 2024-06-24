@@ -1,8 +1,7 @@
 package ru.avem.components
 
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
@@ -21,11 +20,11 @@ fun CreatorOI (viewModel: EditorOIScreenViewModel) {
     ){
         Text(text = "Значения", style = MaterialTheme.typography.h4, modifier = Modifier.padding(20.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(0.9f).height(120.dp).padding(start = 37.dp),
+            modifier = Modifier.fillMaxWidth(0.9f).height(120.dp).padding(start = 45.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Схема", style = MaterialTheme.typography.subtitle1)
+            Text("Схема", style = MaterialTheme.typography.h5)
             Column (
                 modifier = Modifier
             ) {
@@ -72,7 +71,7 @@ fun CreatorOI (viewModel: EditorOIScreenViewModel) {
                 Column(
                     modifier = Modifier.fillMaxWidth(0.6f)
                 ) {
-                    Text(text = "Тип", style = MaterialTheme.typography.subtitle1)
+                    Text(text = "Тип", style = MaterialTheme.typography.h5)
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(0.6f)
@@ -96,7 +95,7 @@ fun CreatorOI (viewModel: EditorOIScreenViewModel) {
                 Column(
                     modifier = Modifier.fillMaxWidth(0.6f)
                 ) {
-                    Text(text = "Тип", style = MaterialTheme.typography.subtitle1)
+                    Text(text = "Тип", style = MaterialTheme.typography.h5)
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(0.6f)
@@ -114,8 +113,8 @@ fun CreatorOI (viewModel: EditorOIScreenViewModel) {
         }
 
         ParamOIRow("Мощность, кВт", viewModel.power, 1, 100, viewModel.addNewTI.value, viewModel.newPower, viewModel.validateField1)
-        ParamOIRow("Напряжение линейноеб В", viewModel.u_linear, 380, 400, viewModel.addNewTI.value, viewModel.newU_linear, viewModel.validateField2)
-        ParamOIRow("Токб А", viewModel.i, 1, 100, viewModel.addNewTI.value, viewModel.newI, viewModel.validateField3)
+        ParamOIRow("Напряжение линейное, В", viewModel.u_linear, 380, 400, viewModel.addNewTI.value, viewModel.newU_linear, viewModel.validateField2)
+        ParamOIRow("Ток, А", viewModel.i, 1, 100, viewModel.addNewTI.value, viewModel.newI, viewModel.validateField3)
         ParamOIRow("Напряжение ВИУ, В", viewModel.u_viu, 0, 2000, viewModel.addNewTI.value, viewModel.newU_viu, viewModel.validateField4)
         ParamOIRow("Напряжение испытания мегаомметром, В", viewModel.u_mgr, 500, 2500, viewModel.addNewTI.value, viewModel.newU_mgr, viewModel.validateField5)
         ParamOIRow("Температурный Kr для расчета, приведённого R, 1/°C", viewModel.t, -99999999, 999999999, viewModel.addNewTI.value, viewModel.newT, viewModel.validateField6)
