@@ -30,7 +30,7 @@ fun VIUTestWindow (viewModel: TestScreenViewModel) {
                 Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
             }
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "Наименование")
+                TableCell(text = "Наименование777")
 
             }
 //            Row() {

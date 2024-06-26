@@ -45,20 +45,20 @@ class TestScreenViewModel : ScreenModel {
     var warningVW = mutableStateOf(false)
     var warningWU = mutableStateOf(false)
 
-    val listTestItems = listOf(TestItem(), TestItem(), TestItem())
+    var listTestItems = listOf(TestItem(), TestItem(), TestItem())
 
-    fun start(
+    fun start (
         testItemLine: MutableState<MutableIterator<SelectedTestObject>>,
         testName: TestEnum
     ) {
         screenModelScope.launch(
             Dispatchers.Default
         ) {
-            waiting.value = false
+//            waiting.value = false
             isTestRunning.value = true
-            if (isTestRunning.value) initPR()
-            if (isTestRunning.value) initButtonPost()
-            waiting.value = true
+//            if (isTestRunning.value) initPR()
+//            if (isTestRunning.value) initButtonPost()
+//            waiting.value = true
             when (testName) {
                 TestEnum.nameMGR -> startMeasurementMGR(testItemLine)
                 TestEnum.nameVIU -> startMeasurementVIU(testItemLine)
@@ -67,6 +67,10 @@ class TestScreenViewModel : ScreenModel {
                 TestEnum.nameMV -> startMeasurementMV(testItemLine)
             }
         }
+    }
+
+    fun clearFields () {
+        listTestItems = listOf(TestItem(), TestItem(), TestItem())
     }
 
 

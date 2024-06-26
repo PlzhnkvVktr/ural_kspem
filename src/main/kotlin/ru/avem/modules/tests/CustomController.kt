@@ -94,10 +94,10 @@ object CustomController {
         }
     }
 
-    fun checkLatrZero() {
+    suspend fun checkLatrZero() {
         var latrTimer = 300
         while (voltOnATR > 10 && isTestRunning.value) {
-            sleep(100)
+            delay(100)
             latrTimer--
             if (latrTimer<0) {
                 appendMessageToLog("U ATR > 10", LogType.ERROR)
@@ -201,10 +201,10 @@ object CustomController {
         }
     }
 
-    fun initVibro(pol: MutableState<String>, rab: MutableState<String>) {
-        CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_POL) { rab.value = it.af() }
-        CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_RAB) { pol.value = it.af() }
-    }
+//    fun initVibro(pol: MutableState<String>, rab: MutableState<String>) {
+//        CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_POL) { rab.value = it.af() }
+//        CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.VIBRO_RAB) { pol.value = it.af() }
+//    }
 
 //    fun checkRPM(n: MutableState<String>) {
 //        if (n.value.toDouble() > testObject.specifiedRPM.toDouble() / 2) {
@@ -241,9 +241,6 @@ object CustomController {
         i_u: MutableState<String>? = null,
         i_v: MutableState<String>? = null,
         i_w: MutableState<String>? = null,
-//        P1: MutableState<String>? = null,
-//        cos: MutableState<String>? = null,
-//        F: MutableState<String>? = null
         ) {
         appendMessageToLog("Инициализация PM130...", LogType.MESSAGE)
         pm130.checkResponsibility()

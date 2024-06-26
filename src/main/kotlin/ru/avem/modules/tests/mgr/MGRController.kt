@@ -18,6 +18,9 @@ import ru.avem.modules.tests.CustomController.appendMessageToLog
 import ru.avem.modules.tests.CustomController.initAVEM9
 import ru.avem.modules.tests.CustomController.statusMGR
 
+//class MeasurementMGR() : Test() {
+//
+//}
 suspend fun TestScreenViewModel.startMeasurementMGR(testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
     repeat(3) {
         if (isTestRunning.value) initAVEM9()

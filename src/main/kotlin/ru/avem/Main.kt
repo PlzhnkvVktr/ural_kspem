@@ -20,6 +20,7 @@ import ru.avem.screens.MainScreen
 import ru.avem.screens.SelectionTestObjectScreen
 
 fun main() = application {
+
     DBManager
     Window(
         onCloseRequest = ::exitApplication,

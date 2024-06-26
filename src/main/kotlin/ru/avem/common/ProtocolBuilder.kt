@@ -2,7 +2,6 @@ package ru.avem.common
 
 import ru.avem.db.DBManager
 import ru.avem.db.TestProtocol
-import ru.avem.db.TestProtocols
 
 
 object ProtocolBuilder {
@@ -26,140 +25,129 @@ object ProtocolBuilder {
 
     //MGR
     var mgrTestName = ""
-    var U = ""
-    var R15 = ""
-    var R60 = ""
-    var kABS = ""
-    var mgrT = ""
-    var mgrResult = ""
+    var u_1 = ""
+    var r15_1 = ""
+    var r60_1 = ""
+    var kABS_1 = ""
+    var mgrT_1 = ""
+    var mgrResult_1 = ""
+    var u_2 = ""
+    var r15_2 = ""
+    var r60_2 = ""
+    var kABS_2 = ""
+    var mgrT_2 = ""
+    var mgrResult_2 = ""
+    var u_3 = ""
+    var r15_3 = ""
+    var r60_3 = ""
+    var kABS_3 = ""
+    var mgrT_3 = ""
+    var mgrResult_3 = ""
 
     //VIU
     var viuTestName = ""
-    var viuU = ""
-    var viuI = ""
-    var viuTime = ""
-    var viuResult = ""
+    var viuU_1 = ""
+    var viuI_1 = ""
+    var viuTime_1 = ""
+    var viuResult_1 = ""
+
+    var viuU_2 = ""
+    var viuI_2 = ""
+    var viuTime_2 = ""
+    var viuResult_2 = ""
+
+    var viuU_3 = ""
+    var viuI_3 = ""
+    var viuTime_3 = ""
+    var viuResult_3 = ""
 
     //IKAS
     var ikasTestName = ""
-    var Ruv1 = ""
-    var Rvw1 = ""
-    var Rwu1 = ""
-    var Ruv2 = ""
-    var Rvw2 = ""
-    var Rwu2 = ""
-    var deviationIkas = ""
-    var ikasResult = ""
+    var r_uv_1 = ""
+    var r_vw_1 = ""
+    var r_wu_1 = ""
+    var ikasResult_1 = ""
+
+    var r_uv_2 = ""
+    var r_vw_2 = ""
+    var r_wu_2 = ""
+    var ikasResult_2 = ""
+
+    var r_uv_3 = ""
+    var r_vw_3 = ""
+    var r_wu_3 = ""
+    var ikasResult_3 = ""
 
     //MV
     var mvTestName = ""
-    var Uuv = ""
-    var Uvw = ""
-    var Uwu = ""
-    var beforeIu = ""
-    var beforeIv = ""
-    var beforeIw = ""
-    var afterIu = ""
-    var afterIv = ""
-    var afterIw = ""
-    var beforeUuv = ""
-    var beforeUvw = ""
-    var beforeUwu = ""
-    var afterUuv = ""
-    var afterUvw = ""
-    var afterUwu = ""
-    var mvCalcA = ""
-    var mvCalcB = ""
-    var mvCalcC = ""
-    var mvResult = ""
+    var before_i_u_hh_1 = ""
+    var before_i_v_hh_1 = ""
+    var before_i_w_hh_1 = ""
+    var before_i_u_hh_2 = ""
+    var before_i_v_hh_2 = ""
+    var before_i_w_hh_2 = ""
+    var before_i_u_hh_3 = ""
+    var before_i_v_hh_3 = ""
+    var before_i_w_hh_3 = ""
+    var after_i_u_hh_1 = ""
+    var after_i_v_hh_1 = ""
+    var after_i_w_hh_1 = ""
+    var after_i_u_hh_2 = ""
+    var after_i_v_hh_2 = ""
+    var after_i_w_hh_2 = ""
+    var after_i_u_hh_3 = ""
+    var after_i_v_hh_3 = ""
+    var after_i_w_hh_3 = ""
+    var before_u_uv_mv_1 = ""
+    var before_u_vw_mv_1 = ""
+    var before_u_wu_mv_1 = ""
+    var before_u_uv_mv_2 = ""
+    var before_u_vw_mv_2 = ""
+    var before_u_wu_mv_2 = ""
+    var before_u_uv_mv_3 = ""
+    var before_u_vw_mv_3 = ""
+    var before_u_wu_mv_3 = ""
+    var after_u_uv_mv_1 = ""
+    var after_u_vw_mv_1 = ""
+    var after_u_wu_mv_1 = ""
+    var after_u_uv_mv_2 = ""
+    var after_u_vw_mv_2 = ""
+    var after_u_wu_mv_2 = ""
+    var after_u_uv_mv_3 = ""
+    var after_u_vw_mv_3 = ""
+    var after_u_wu_mv_3 = ""
+    var result_a_mv_1 = ""
+    var result_b_mv_1 = ""
+    var result_c_mv_1 = ""
+    var result_a_mv_2 = ""
+    var result_b_mv_2 = ""
+    var result_c_mv_2 = ""
+    var result_a_mv_3 = ""
+    var result_b_mv_3 = ""
+    var result_c_mv_3 = ""
 
-    //TR//
-    var trTestName = ""
-    var trUAB = ""
-    var trUBC = ""
-    var trUCA = ""
-    var trUAB1 = ""
-    var trUBC1 = ""
-    var trUCA1 = ""
-    var trUAB2 = ""
-    var trUBC2 = ""
-    var trUCA2 = ""
-    var trCalcUAB = ""
-    var trCalcUBC = ""
-    var trCalcUCA = ""
-    var trUOV = ""
-    var trIA = ""
-    var trIB = ""
-    var trIC = ""
-    var trIOV = ""
-    var trTempTI = ""
-    var trTempAmb = ""
-    var trSpeed = ""
-    var trVibro1 = ""
-    var trVibro2 = ""
-    var trP1 = ""
-    var trCos = ""
-    var trResult = ""
 
     //HH//
     var hhTestName = ""
-    var hhUAB = ""
-    var hhUBC = ""
-    var hhUCA = ""
-    var hhUOV = ""
-    var hhIA = ""
-    var hhIB = ""
-    var hhIC = ""
-    var hhIOV = ""
-    var hhTempTI = ""
-    var hhTempAmb = ""
-    var hhSpeed = ""
-    var hhVibro1 = ""
-    var hhVibro2 = ""
-    var hhP1 = ""
-    var hhCos = ""
-    var hhTime = ""
-    var hhResult = ""
+    var u_uv_hh_1 = ""
+    var u_vw_hh_1 = ""
+    var u_wu_hh_1 = ""
+    var i_u_hh_1 = ""
+    var i_v_hh_1 = ""
+    var i_w_hh_1 = ""
+    var u_uv_hh_2 = ""
+    var u_vw_hh_2 = ""
+    var u_wu_hh_2 = ""
+    var i_u_hh_2 = ""
+    var i_v_hh_2 = ""
+    var i_w_hh_2 = ""
+    var u_uv_hh_3 = ""
+    var u_vw_hh_3 = ""
+    var u_wu_hh_3 = ""
+    var i_u_hh_3 = ""
+    var i_v_hh_3 = ""
+    var i_w_hh_3 = ""
 
-    //idle
-    var idleTestName = ""
-    var idleUAB = ""
-    var idleUBC = ""
-    var idleUCA = ""
-    var idleUOV = ""
-    var idleIA = ""
-    var idleIB = ""
-    var idleIC = ""
-    var idleVibro1 = ""
-    var idleVibro2 = ""
-    var idleTime = ""
-    var idleIOV = ""
-    var idleSpeed = ""
-    var idleF = ""
-    var idleP1 = ""
-    var idleCos = ""
-    var idleResult = ""
-    var idleTempTI = ""
-    var idleTempAmb = ""
-
-    //KZ//
-    var kzTestName = ""
-    var kzUAB = ""
-    var kzUBC = ""
-    var kzUCA = ""
-    var kzUOV = ""
-    var kzIA = ""
-    var kzIB = ""
-    var kzIC = ""
-    var kzIOV = ""
-    var kzTempTI = ""
-    var kzTempAmb = ""
-    var kzSpeed = ""
-    var kzVibro1 = ""
-    var kzVibro2 = ""
-    var kzP1 = ""
-    var kzCos = ""
-    var kzResult = ""
 
     fun clear() {
         id = ""
@@ -181,140 +169,127 @@ object ProtocolBuilder {
 
         //MGR
         mgrTestName = ""
-        U = ""
-        R15 = ""
-        R60 = ""
-        kABS = ""
-        mgrT = ""
-        mgrResult = ""
+        u_1 = ""
+        r15_1 = ""
+        r60_1 = ""
+        kABS_1 = ""
+        mgrT_1 = ""
+        mgrResult_1 = ""
+        u_2 = ""
+        r15_2 = ""
+        r60_2 = ""
+        kABS_2 = ""
+        mgrT_2 = ""
+        mgrResult_2 = ""
+        u_3 = ""
+        r15_3 = ""
+        r60_3 = ""
+        kABS_3 = ""
+        mgrT_3 = ""
+        mgrResult_3 = ""
 
         //IKAS
         ikasTestName = ""
-        Ruv1 = ""
-        Rvw1 = ""
-        Rwu1 = ""
-        Ruv2 = ""
-        Rvw2 = ""
-        Rwu2 = ""
-        deviationIkas = ""
-        ikasResult = ""
+
+        r_uv_1 = ""
+        r_vw_1 = ""
+        r_wu_1 = ""
+        ikasResult_1 = ""
+
+        r_uv_2 = ""
+        r_vw_2 = ""
+        r_wu_2 = ""
+        ikasResult_2 = ""
+
+        r_uv_3 = ""
+        r_vw_3 = ""
+        r_wu_3 = ""
+        ikasResult_3 = ""
 
         //VIU
         viuTestName = ""
-        viuU = ""
-        viuI = ""
-        viuTime = ""
-        viuResult = ""
+        viuU_1 = ""
+        viuI_1 = ""
+        viuTime_1 = ""
+        viuResult_1 = ""
+        viuU_2 = ""
+        viuI_2 = ""
+        viuTime_2 = ""
+        viuResult_2 = ""
+        viuU_3 = ""
+        viuI_3 = ""
+        viuTime_3 = ""
+        viuResult_3 = ""
 
         //MV
         mvTestName = ""
-        Uuv = ""
-        Uvw = ""
-        Uwu = ""
-        beforeIu = ""
-        beforeIv = ""
-        beforeIw = ""
-        afterIu = ""
-        afterIv = ""
-        afterIw = ""
-        beforeUuv = ""
-        beforeUvw = ""
-        beforeUwu = ""
-        afterUuv = ""
-        afterUvw = ""
-        afterUwu = ""
-        mvCalcA = ""
-        mvCalcB = ""
-        mvCalcC = ""
-        mvResult = ""
+        before_i_u_hh_1 = ""
+        before_i_v_hh_1 = ""
+        before_i_w_hh_1 = ""
+        before_i_u_hh_2 = ""
+        before_i_v_hh_2 = ""
+        before_i_w_hh_2 = ""
+        before_i_u_hh_3 = ""
+        before_i_v_hh_3 = ""
+        before_i_w_hh_3 = ""
+        after_i_u_hh_1 = ""
+        after_i_v_hh_1 = ""
+        after_i_w_hh_1 = ""
+        after_i_u_hh_2 = ""
+        after_i_v_hh_2 = ""
+        after_i_w_hh_2 = ""
+        after_i_u_hh_3 = ""
+        after_i_v_hh_3 = ""
+        after_i_w_hh_3 = ""
+        before_u_uv_mv_1 = ""
+        before_u_vw_mv_1 = ""
+        before_u_wu_mv_1 = ""
+        before_u_uv_mv_2 = ""
+        before_u_vw_mv_2 = ""
+        before_u_wu_mv_2 = ""
+        before_u_uv_mv_3 = ""
+        before_u_vw_mv_3 = ""
+        before_u_wu_mv_3 = ""
+        after_u_uv_mv_1 = ""
+        after_u_vw_mv_1 = ""
+        after_u_wu_mv_1 = ""
+        after_u_uv_mv_2 = ""
+        after_u_vw_mv_2 = ""
+        after_u_wu_mv_2 = ""
+        after_u_uv_mv_3 = ""
+        after_u_vw_mv_3 = ""
+        after_u_wu_mv_3 = ""
+        result_a_mv_1 = ""
+        result_b_mv_1 = ""
+        result_c_mv_1 = ""
+        result_a_mv_2 = ""
+        result_b_mv_2 = ""
+        result_c_mv_2 = ""
+        result_a_mv_3 = ""
+        result_b_mv_3 = ""
+        result_c_mv_3 = ""
 
-        //TR
-        trTestName = ""
-        trUAB = ""
-        trUBC = ""
-        trUCA = ""
-        trUAB1 = ""
-        trUBC1 = ""
-        trUCA1 = ""
-        trUAB2 = ""
-        trUBC2 = ""
-        trUCA2 = ""
-        trCalcUAB = ""
-        trCalcUBC = ""
-        trCalcUCA = ""
-        trUOV = ""
-        trIA = ""
-        trIB = ""
-        trIC = ""
-        trIOV = ""
-        trTempTI = ""
-        trTempAmb = ""
-        trSpeed = ""
-        trVibro1 = ""
-        trVibro2 = ""
-        trP1 = ""
-        trCos = ""
-        trResult = ""
 
         //hh
         hhTestName = ""
-        hhUAB = ""
-        hhUBC = ""
-        hhUCA = ""
-        hhUOV = ""
-        hhIA = ""
-        hhIB = ""
-        hhIC = ""
-        hhIOV = ""
-        hhTempTI = ""
-        hhTempAmb = ""
-        hhSpeed = ""
-        hhVibro1 = ""
-        hhVibro2 = ""
-        hhP1 = ""
-        hhCos = ""
-        hhTime = ""
-        hhResult = ""
-
-        //idle
-        idleTestName = ""
-        idleUAB = ""
-        idleUBC = ""
-        idleUCA = ""
-        idleUOV = ""
-        idleIA = ""
-        idleIB = ""
-        idleIC = ""
-        idleVibro1 = ""
-        idleVibro2 = ""
-        idleTime = ""
-        idleIOV = ""
-        idleSpeed = ""
-        idleF = ""
-        idleP1 = ""
-        idleCos = ""
-        idleResult = ""
-        idleTempTI = ""
-        idleTempAmb = ""
-
-        //KZ
-        kzTestName = ""
-        kzUAB = ""
-        kzUBC = ""
-        kzUCA = ""
-        kzUOV = ""
-        kzIA = ""
-        kzIB = ""
-        kzIC = ""
-        kzIOV = ""
-        kzTempTI = ""
-        kzTempAmb = ""
-        kzSpeed = ""
-        kzVibro1 = ""
-        kzVibro2 = ""
-        kzP1 = ""
-        kzCos = ""
-        kzResult = ""
+        u_uv_hh_1 = ""
+        u_vw_hh_1 = ""
+        u_wu_hh_1 = ""
+        i_u_hh_1 = ""
+        i_v_hh_1 = ""
+        i_w_hh_1 = ""
+        u_uv_hh_2 = ""
+        u_vw_hh_2 = ""
+        u_wu_hh_2 = ""
+        i_u_hh_2 = ""
+        i_v_hh_2 = ""
+        i_w_hh_2 = ""
+        u_uv_hh_3 = ""
+        u_vw_hh_3 = ""
+        u_wu_hh_3 = ""
+        i_u_hh_3 = ""
+        i_v_hh_3 = ""
+        i_w_hh_3 = ""
     }
 
     fun fillProtocol (protocol: TestProtocol) {
@@ -339,133 +314,124 @@ object ProtocolBuilder {
         scheme = t.scheme.toString()
 
         //MGR
-        U = t.mgrU.toString()
-        R15 = t.mgrR15.toString()
-        R60 = t.mgrR60.toString()
-        kABS = t.mgrkABS.toString()
-        mgrT = t.mgrT.toString()
-        mgrResult = t.mgrResult.toString()
+        u_1 = t.mgrU_1.toString()
+        r15_1 = t.mgrR15_1.toString()
+        r60_1 = t.mgrR60_1.toString()
+        kABS_1 = t.mgrkABS_1.toString()
+        mgrT_1 = t.mgrT_1.toString()
+        mgrResult_1 = t.mgrResult_1.toString()
+
+        u_2 = t.mgrU_2.toString()
+        r15_2 = t.mgrR15_2.toString()
+        r60_2 = t.mgrR60_2.toString()
+        kABS_2 = t.mgrkABS_2.toString()
+        mgrT_2 = t.mgrT_2.toString()
+        mgrResult_2 = t.mgrResult_2.toString()
+
+        u_3 = t.mgrU_3.toString()
+        r15_3 = t.mgrR15_3.toString()
+        r60_3 = t.mgrR60_3.toString()
+        kABS_3 = t.mgrkABS_3.toString()
+        mgrT_3 = t.mgrT_3.toString()
+        mgrResult_3 = t.mgrResult_3.toString()
 
         //VIU
-        viuU = t.viuU.toString()
-        viuI = t.viuI.toString()
-        viuTime = t.viuTime.toString()
-        viuResult = t.viuResult.toString()
+        viuU_1 = t.viuU_1.toString()
+        viuI_1 = t.viuI_1.toString()
+        viuTime_1 = t.viuTime_1.toString()
+        viuResult_1 = t.viuResult_1.toString()
+        viuU_2 = t.viuU_2.toString()
+        viuI_2 = t.viuI_2.toString()
+        viuTime_2 = t.viuTime_2.toString()
+        viuResult_2 = t.viuResult_2.toString()
+        viuU_3 = t.viuU_3.toString()
+        viuI_3 = t.viuI_3.toString()
+        viuTime_3 = t.viuTime_3.toString()
+        viuResult_3 = t.viuResult_3.toString()
 
          //IKAS
-        Ruv1 = t.Ruv1.toString()
-        Rvw1 = t.Rvw1.toString()
-        Rwu1 = t.Rwu1.toString()
-        Ruv2 = t.Ruv2.toString()
-        Rvw2 = t.Rvw2.toString()
-        Rwu2 = t.Rwu2.toString()
-        deviationIkas = t.deviationIkas.toString()
-        ikasResult = t.ikasResult.toString()
+
+        r_uv_1 = t.ikasRuv1.toString()
+        r_vw_1 = t.ikasRvw1.toString()
+        r_wu_1 = t.ikasRwu1.toString()
+        ikasResult_1 = t.ikasResult_1.toString()
+        r_uv_2 = t.ikasRuv2.toString()
+        r_vw_2 = t. ikasRvw2.toString()
+        r_wu_2 = t. ikasRwu2.toString()
+        ikasResult_2 = t.ikasResult_2.toString()
+        r_uv_3 = t.ikasRuv3.toString()
+        r_vw_3 = t.ikasRvw3.toString()
+        r_wu_3 = t.ikasRwu3.toString()
+        ikasResult_3 = t.ikasResult_3.toString()
 
         //MV
-        Uuv = t.Uuv.toString()
-        Uvw = t.Uvw.toString()
-        Uwu = t.Uwu.toString()
-        beforeIu = t.beforeIu.toString()
-        beforeIv = t.beforeIv.toString()
-        beforeIw = t.beforeIw.toString()
-        afterIu = t.afterIu.toString()
-        afterIv = t.afterIv.toString()
-        afterIw = t.afterIw.toString()
-        beforeUuv = t.beforeUuv.toString()
-        beforeUvw = t.beforeUvw.toString()
-        beforeUwu = t.beforeUwu.toString()
-        afterUuv = t.afterUuv.toString()
-        afterUvw = t.afterUvw.toString()
-        afterUwu = t.afterUwu.toString()
-        mvCalcA = t.mvCalcA.toString()
-        mvCalcB = t.mvCalcB.toString()
-        mvCalcC = t.mvCalcC.toString()
-        mvResult = t.mvResult.toString()
+        before_i_u_hh_1 = t.before_i_u_hh_1.toString()
+        before_i_v_hh_1 = t.before_i_v_hh_1.toString()
+        before_i_w_hh_1 = t.before_i_w_hh_1.toString()
+        before_i_u_hh_2 = t.before_i_u_hh_2.toString()
+        before_i_v_hh_2 = t.before_i_v_hh_2.toString()
+        before_i_w_hh_2 = t.before_i_w_hh_2.toString()
+        before_i_u_hh_3 = t.before_i_u_hh_3.toString()
+        before_i_v_hh_3 = t.before_i_v_hh_3.toString()
+        before_i_w_hh_3 = t.before_i_w_hh_3.toString()
+        after_i_u_hh_1 = t.after_i_u_hh_1.toString()
+        after_i_v_hh_1 = t.after_i_v_hh_1.toString()
+        after_i_w_hh_1 = t.after_i_w_hh_1.toString()
+        after_i_u_hh_2 = t.after_i_u_hh_2.toString()
+        after_i_v_hh_2 = t.after_i_v_hh_2.toString()
+        after_i_w_hh_2 = t.after_i_w_hh_2.toString()
+        after_i_u_hh_3 = t.after_i_u_hh_3.toString()
+        after_i_v_hh_3 = t.after_i_v_hh_3.toString()
+        after_i_w_hh_3 = t.after_i_w_hh_3.toString()
+        before_u_uv_mv_1 = t.before_u_uv_mv_1.toString()
+        before_u_vw_mv_1 = t.before_u_vw_mv_1.toString()
+        before_u_wu_mv_1 = t.before_u_wu_mv_1.toString()
+        before_u_uv_mv_2 = t.before_u_uv_mv_2.toString()
+        before_u_vw_mv_2 = t.before_u_vw_mv_2.toString()
+        before_u_wu_mv_2 = t.before_u_wu_mv_2.toString()
+        before_u_uv_mv_3 = t.before_u_uv_mv_3.toString()
+        before_u_vw_mv_3 = t.before_u_vw_mv_3.toString()
+        before_u_wu_mv_3 = t.before_u_wu_mv_3.toString()
+        after_u_uv_mv_1 = t.after_u_uv_mv_1.toString()
+        after_u_vw_mv_1 = t.after_u_vw_mv_1.toString()
+        after_u_wu_mv_1 = t.after_u_wu_mv_1.toString()
+        after_u_uv_mv_2 = t.after_u_uv_mv_2.toString()
+        after_u_vw_mv_2 = t.after_u_vw_mv_2.toString()
+        after_u_wu_mv_2 = t.after_u_wu_mv_2.toString()
+        after_u_uv_mv_3 = t.after_u_uv_mv_3.toString()
+        after_u_vw_mv_3 = t.after_u_vw_mv_3.toString()
+        after_u_wu_mv_3 = t.after_u_wu_mv_3.toString()
+        result_a_mv_1 = t.result_a_mv_1.toString()
+        result_b_mv_1 = t.result_b_mv_1.toString()
+        result_c_mv_1 = t.result_c_mv_1.toString()
+        result_a_mv_2 = t.result_a_mv_2.toString()
+        result_b_mv_2 = t.result_b_mv_2.toString()
+        result_c_mv_2 = t.result_c_mv_2.toString()
+        result_a_mv_3 = t.result_a_mv_3.toString()
+        result_b_mv_3 = t.result_b_mv_3.toString()
+        result_c_mv_3 = t.result_c_mv_3.toString()
 
-        //TR
-        trUAB = t.trUAB.toString()
-        trUBC = t.trUBC.toString()
-        trUCA = t.trUCA.toString()
-        trUAB1 = t.trUAB1.toString()
-        trUBC1 = t.trUBC1.toString()
-        trUCA1 = t.trUCA1.toString()
-        trUAB2 = t.trUAB2.toString()
-        trUBC2 = t.trUBC2.toString()
-        trUCA2 = t.trUCA2.toString()
-        trCalcUAB = t.trCalcUAB.toString()
-        trCalcUBC = t.trCalcUBC.toString()
-        trCalcUCA = t.trCalcUCA.toString()
-        trUOV = t.trUOV.toString()
-        trIA = t.trIA.toString()
-        trIB = t.trIB.toString()
-        trIC = t.trIC.toString()
-        trIOV = t.trIOV.toString()
-        trTempTI = t.trTempTI.toString()
-        trTempAmb = t.trTempAmb.toString()
-        trSpeed = t.trSpeed.toString()
-        trVibro1 = t.trVibro1.toString()
-        trVibro2 = t.trVibro2.toString()
-        trP1 = t.trP1.toString()
-        trCos = t.trCos.toString()
-        trResult = t.trResult.toString()
-
-        //KZ
-        kzUAB = t.kzUAB.toString()
-        kzUBC = t.kzUBC.toString()
-        kzUCA = t.kzUCA.toString()
-        kzUOV = t.kzUOV.toString()
-        kzIA = t.kzIA.toString()
-        kzIB = t.kzIB.toString()
-        kzIC = t.kzIC.toString()
-        kzIOV = t.kzIOV.toString()
-        kzTempTI = t.kzTempTI.toString()
-        kzTempAmb = t.kzTempAmb.toString()
-        kzSpeed = t.kzSpeed.toString()
-        kzVibro1 = t.kzVibro1.toString()
-        kzVibro2 = t.kzVibro2.toString()
-        kzP1 = t.kzP1.toString()
-        kzCos = t.kzCos.toString()
-        kzResult = t.kzResult.toString()
 
         //HH
-        hhUAB = t.hhUAB.toString()
-        hhUBC = t.hhUBC.toString()
-        hhUCA = t.hhUCA.toString()
-        hhUOV = t.hhUOV.toString()
-        hhIA = t.hhIA.toString()
-        hhIB = t.hhIB.toString()
-        hhIC = t.hhIC.toString()
-        hhIOV = t.hhIOV.toString()
-        hhTempTI = t.hhTempTI.toString()
-        hhTempAmb = t.hhTempAmb.toString()
-        hhSpeed = t.hhSpeed.toString()
-        hhVibro1 = t.hhVibro1.toString()
-        hhVibro2 = t.hhVibro2.toString()
-        hhP1 = t.hhP1.toString()
-        hhCos = t.hhCos.toString()
-        hhTime = t.hhTime.toString()
-        hhResult = t.hhResult.toString()
+        u_uv_hh_1 = t.u_uv_hh_1.toString()
+        u_vw_hh_1 = t.u_vw_hh_1.toString()
+        u_wu_hh_1 = t.u_wu_hh_1.toString()
+        i_u_hh_1 = t.i_u_hh_1.toString()
+        i_v_hh_1 = t.i_v_hh_1.toString()
+        i_w_hh_1 = t.i_w_hh_1.toString()
+        u_uv_hh_2 = t.u_uv_hh_2.toString()
+        u_vw_hh_2 = t.u_vw_hh_2.toString()
+        u_wu_hh_2 = t.u_wu_hh_2.toString()
+        i_u_hh_2 = t.i_u_hh_2.toString()
+        i_v_hh_2 = t.i_v_hh_2.toString()
+        i_w_hh_2 = t.i_w_hh_2.toString()
+        u_uv_hh_3 = t.u_uv_hh_3.toString()
+        u_vw_hh_3 = t.u_vw_hh_3.toString()
+        u_wu_hh_3 = t.u_wu_hh_3.toString()
+        i_u_hh_3 = t.i_u_hh_3.toString()
+        i_v_hh_3 = t.i_v_hh_3.toString()
+        i_w_hh_3 = t.i_w_hh_3.toString()
 
-        //idle
-        idleUAB = t.idleUAB.toString()
-        idleUBC = t.idleUBC.toString()
-        idleUCA = t.idleUCA.toString()
-        idleUOV = t.idleUOV.toString()
-        idleIA = t.idleIA.toString()
-        idleIB = t.idleIB.toString()
-        idleIC = t.idleIC.toString()
-        idleVibro1 = t.idleVibro1.toString()
-        idleVibro2 = t.idleVibro2.toString()
-        idleTime = t.idleTime.toString()
-        idleIOV = t.idleIOV.toString()
-        idleSpeed = t.idleSpeed.toString()
-        idleF = t.idleF.toString()
-        idleP1 = t.idleP1.toString()
-        idleCos = t.idleCos.toString()
-        idleResult = t.idleResult.toString()
-        idleTempTI = t.idleTempTI.toString()
-        idleTempAmb = t.idleTempAmb.toString()
 
     }
 
