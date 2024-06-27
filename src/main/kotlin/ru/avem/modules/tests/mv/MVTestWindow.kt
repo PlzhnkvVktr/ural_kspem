@@ -25,73 +25,63 @@ fun MVTestWindow (viewModel: TestScreenViewModel) {
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
                 Text(text = viewModel.nameMV, style = MaterialTheme.typography.h5)
             }
-//            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-//                Text(text = "Номинальные параметры", style = MaterialTheme.typography.h6)
-//            }
-//            Row(Modifier.background(Color.Gray)) {
-//                TableCell(text = "Um")
-//            }
-//            Row(Modifier.padding(bottom = 20.dp)) {
-//                TableCell(text = viewModel.specifiedMgrU.value)
-//            }
-            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
+            Row(Modifier.background(Color.Gray)) {
+                TableCell(text = "U uv, B")
+                TableCell(text = "U vw, B")
+                TableCell(text = "U wu, B")
+                TableCell(text = "I u, A")
+                TableCell(text = "I v, A")
+                TableCell(text = "I w, A")
+            }
+            Row() {
+                TableCell(text = viewModel.u_uv.value)
+                TableCell(text = viewModel.u_vw.value)
+                TableCell(text = viewModel.u_wu.value)
+                TableCell(text = viewModel.i_u.value)
+                TableCell(text = viewModel.i_v.value)
+                TableCell(text = viewModel.i_w.value)
             }
             Row(Modifier.background(Color.Gray)) {
                 TableCell(text = "Наименование")
-                TableCell(text = "U номинальное")
-                TableCell(text = "U")
-                TableCell(text = "R15, Ом")
-                TableCell(text = "R60, Ом")
-                TableCell(text = "Abs")
+                TableCell(text = "до U uv, B")
+                TableCell(text = "до U vw, B")
+                TableCell(text = "до U wu, B")
+                TableCell(text = "до I u, A")
+                TableCell(text = "до I v, A")
+                TableCell(text = "до I w, A")
             }
-//            Row() {
-//                TableCell(text = viewModel.name_1.value)
-//                TableCell(text = viewModel.specifiedMgrU_1.value)
-//                TableCell(text = viewModel.mgrU_1.value)
-//                TableCell(text = viewModel.R15_1.value)
-//                TableCell(text = viewModel.R60_1.value)
-//                TableCell(text = viewModel.kABS_1.value)
-//            }
-//            Row() {
-//                TableCell(text = viewModel.name_2.value)
-//                TableCell(text = viewModel.specifiedMgrU_2.value)
-//                TableCell(text = viewModel.mgrU_2.value)
-//                TableCell(text = viewModel.R15_2.value)
-//                TableCell(text = viewModel.R60_2.value)
-//                TableCell(text = viewModel.kABS_2.value)
-//            }
-//            Row() {
-//                TableCell(text = viewModel.name_3.value)
-//                TableCell(text = viewModel.specifiedMgrU_3.value)
-//                TableCell(text = viewModel.mgrU_3.value)
-//                TableCell(text = viewModel.R15_3.value)
-//                TableCell(text = viewModel.R60_3.value)
-//                TableCell(text = viewModel.kABS_3.value)
-//            }
-//            Column (
-//                modifier = Modifier.padding(top = 20.dp)
-//            ) {
-//                Row(Modifier.background(Color.Gray).fillMaxWidth(0.5f)) {
-//                    TableCell(text = "t")
-//                }
-//
-//                Row(Modifier.fillMaxWidth(0.5f)) {
-//                    TableCell(text = viewModel.tempAmb.value)
-//                }
-//            }
-        }
-        Column (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
-        ) {
-            Row(Modifier.background(Color.Gray).fillMaxWidth(0.25f)) {
-                TableCell(text = "Результат")
+            repeat(3) {
+                Row() {
+                    TableCell(text = viewModel.listTestItems[it].name.value)
+                    TableCell(text = viewModel.listTestItems[it].before_u_uv_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].before_u_vw_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].before_u_wu_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].before_i_u_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].before_i_v_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].before_i_w_mv.value)
+                }
+            }
+            Row(Modifier.background(Color.Gray)) {
+                TableCell(text = "Наименование")
+                TableCell(text = "после U uv, B")
+                TableCell(text = "после U vw, B")
+                TableCell(text = "после U wu, B")
+                TableCell(text = "после I u, A")
+                TableCell(text = "после I v, A")
+                TableCell(text = "после I w, A")
+            }
+            repeat(3) {
+                Row() {
+                    TableCell(text = viewModel.listTestItems[it].name.value)
+                    TableCell(text = viewModel.listTestItems[it].after_u_uv_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].after_u_vw_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].after_u_wu_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].after_i_u_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].after_i_v_mv.value)
+                    TableCell(text = viewModel.listTestItems[it].after_i_w_mv.value)
+                }
             }
 
-            Row(Modifier.fillMaxWidth(0.25f)) {
-                TableCell(text = viewModel.result.value)
-            }
         }
     }
 }

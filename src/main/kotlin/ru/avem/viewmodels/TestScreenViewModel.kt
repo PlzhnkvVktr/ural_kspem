@@ -45,6 +45,13 @@ class TestScreenViewModel : ScreenModel {
     var warningVW = mutableStateOf(false)
     var warningWU = mutableStateOf(false)
 
+    var u_uv: MutableState<String> = mutableStateOf("")
+    var u_vw: MutableState<String> = mutableStateOf("")
+    var u_wu: MutableState<String> = mutableStateOf("")
+    var i_u: MutableState<String> = mutableStateOf("")
+    var i_v: MutableState<String> = mutableStateOf("")
+    var i_w: MutableState<String> = mutableStateOf("")
+
     var listTestItems = listOf(TestItem(), TestItem(), TestItem())
 
     fun start (

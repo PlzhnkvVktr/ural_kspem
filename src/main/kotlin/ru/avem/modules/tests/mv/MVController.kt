@@ -13,7 +13,7 @@ suspend fun TestScreenViewModel.startMeasurementMV(testItemLine: MutableState<Mu
         if (CustomController.isTestRunning.value and testItemLine.value.hasNext()) {
             Test.getCurrentTestObject(testItemLine, currentTest)
 
-            initPM130()
+            initPM130(this)
             initARN()
         } else {
             CustomController.isTestRunning.value = false

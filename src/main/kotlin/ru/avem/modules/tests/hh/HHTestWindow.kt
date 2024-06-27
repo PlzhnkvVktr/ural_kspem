@@ -25,17 +25,31 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
             Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
                 Text(text = viewModel.nameIKAS, style = MaterialTheme.typography.h5)
             }
-            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
+            Row(Modifier.background(Color.Gray)) {
+                TableCell(text = "U uv, B")
+                TableCell(text = "U vw, B")
+                TableCell(text = "U wu, B")
+                TableCell(text = "I u, A")
+                TableCell(text = "I v, A")
+                TableCell(text = "I w, A")
             }
+            Row() {
+                TableCell(text = viewModel.u_uv.value)
+                TableCell(text = viewModel.u_vw.value)
+                TableCell(text = viewModel.u_wu.value)
+                TableCell(text = viewModel.i_u.value)
+                TableCell(text = viewModel.i_v.value)
+                TableCell(text = viewModel.i_w.value)
+            }
+
             Row(Modifier.background(Color.Gray)) {
                 TableCell(text = "Наименование")
-                TableCell(text = "Uuv")
-                TableCell(text = "Uvw")
-                TableCell(text = "Uwu")
-                TableCell(text = "Iu")
-                TableCell(text = "Iv")
-                TableCell(text = "Iw")
+                TableCell(text = "U uv, B")
+                TableCell(text = "U vw, B")
+                TableCell(text = "U wu, B")
+                TableCell(text = "I u, A")
+                TableCell(text = "I v, A")
+                TableCell(text = "I w, A")
             }
             repeat(3) {
                 Row() {

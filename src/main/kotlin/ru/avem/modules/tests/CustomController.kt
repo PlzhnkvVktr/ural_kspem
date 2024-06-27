@@ -22,6 +22,7 @@ import ru.avem.modules.devices.pm130.PM130Model
 import ru.avem.modules.tests.utils.ms
 import ru.avem.modules.tests.utils.toDoubleOrDefault
 import ru.avem.modules.devices.avem.avem9.AVEM9
+import ru.avem.viewmodels.TestScreenViewModel
 import java.lang.Thread.sleep
 import java.text.SimpleDateFormat
 import kotlin.concurrent.thread
@@ -55,6 +56,10 @@ object CustomController {
     var ktrVoltage = 1.0
     var voltAverage = 0.0
     var ktrAmperage = 1.0
+
+    var voltage = 0.0
+    var setVoltage = 0.0
+    var latrEndsState = 0
 
     val logMessages = mutableStateListOf<LogMessage>()
     var isStartButton = mutableStateOf(false)
@@ -100,7 +105,7 @@ object CustomController {
             delay(100)
             latrTimer--
             if (latrTimer<0) {
-                appendMessageToLog("U ATR > 10", LogType.ERROR)
+                appendMessageToLog("Напряжение АРН > 10 В", LogType.ERROR)
                 isTestRunning.value = false
             }
         }
@@ -228,71 +233,63 @@ object CustomController {
                     isTestRunning.value = false
                 }
             }
+            CM.startPoll(CM.DeviceID.GV240.name, ATRModel.ENDS_STATUS_REGISTER) { value ->
+                latrEndsState = value.toInt()
+            }
         } else {
             appendMessageToLog("АРН не отвечает", LogType.ERROR)
             isTestRunning.value = false
         }
     }
 
-    suspend fun initPM130(
-        u_uv: MutableState<String>? = null,
-        u_vw: MutableState<String>? = null,
-        u_wu: MutableState<String>? = null,
-        i_u: MutableState<String>? = null,
-        i_v: MutableState<String>? = null,
-        i_w: MutableState<String>? = null,
-        ) {
+    suspend fun initPM130(vm: TestScreenViewModel) {
         appendMessageToLog("Инициализация PM130...", LogType.MESSAGE)
         pm130.checkResponsibility()
 
-        if (isTestRunning.value) sleep(1000)
+        if (isTestRunning.value) delay(1000)
         if (!pm130.isResponding) {
             appendMessageToLog("PM130 не отвечает", LogType.ERROR)
             isTestRunning.value = false
         }
-
-        if (u_uv != null && u_vw != null && u_wu != null) {
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_AB_REGISTER) { value ->
-                u_uv.value = (value.toDouble() * ktrVoltage).af()
-                if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
-                    appendMessageToLog(("Overvoltage"), LogType.ERROR)
-                    isTestRunning.value = false
-                }
-                if (!pm130.isResponding && isTestRunning.value) {
-                    appendMessageToLog("PM130 не отвечает", LogType.ERROR)
-                    isTestRunning.value = false
-                }
+        CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_AB_REGISTER) { value ->
+            vm.u_uv.value = (value.toDouble() * ktrVoltage).af()
+            if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
+                appendMessageToLog(("Overvoltage"), LogType.ERROR)
+                isTestRunning.value = false
             }
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_BC_REGISTER) { value ->
-                u_vw.value = (value.toDouble() * ktrVoltage).af()
-                if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
-                    appendMessageToLog(("Overvoltage"), LogType.ERROR)
-                    isTestRunning.value = false
-                }
-            }
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_CA_REGISTER) { value ->
-                u_wu.value = (value.toDouble() * ktrVoltage).af()
-                voltAverage =
-                    (u_uv.value.toDoubleOrDefault(0.0)
-                            + u_vw.value.toDoubleOrDefault(0.0)
-                            + u_wu.value.toDoubleOrDefault(0.0)) / 3 * ktrVoltage
-                if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
-                    appendMessageToLog(("Overvoltage"), LogType.ERROR)
-                    isTestRunning.value = false
-                }
+            if (!pm130.isResponding && isTestRunning.value) {
+                appendMessageToLog("PM130 не отвечает", LogType.ERROR)
+                isTestRunning.value = false
             }
         }
-        if (i_u != null && i_v != null && i_w != null) {
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_A_REGISTER) {
-                i_u.value = (it.toDouble() * ktrAmperage).af()
-            }
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_B_REGISTER) {
-                i_v.value = (it.toDouble() * ktrAmperage).af()
-            }
-            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_C_REGISTER) {
-                i_w.value = (it.toDouble() * ktrAmperage).af()
+        CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_BC_REGISTER) { value ->
+            vm.u_vw.value = (value.toDouble() * ktrVoltage).af()
+            if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
+                appendMessageToLog(("Overvoltage"), LogType.ERROR)
+                isTestRunning.value = false
             }
         }
+        CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.U_CA_REGISTER) { value ->
+            vm.u_wu.value = (value.toDouble() * ktrVoltage).af()
+            voltAverage =
+                (vm.u_uv.value.toDoubleOrDefault(0.0)
+                        + vm.u_vw.value.toDoubleOrDefault(0.0)
+                        + vm.u_wu.value.toDoubleOrDefault(0.0)) / 3 * ktrVoltage
+            if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
+                appendMessageToLog(("Overvoltage"), LogType.ERROR)
+                isTestRunning.value = false
+            }
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_A_REGISTER) {
+            vm.i_u.value = (it.toDouble() * ktrAmperage).af()
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_B_REGISTER) {
+            vm.i_v.value = (it.toDouble() * ktrAmperage).af()
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.I_C_REGISTER) {
+            vm.i_w.value = (it.toDouble() * ktrAmperage).af()
+        }
+    }
 //        if (P1 != null) {
 //            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.P_REGISTER) {
 //                P1.value = abs(it.toDouble() * ktrAmperage * ktrVoltage).af()
@@ -306,7 +303,7 @@ object CustomController {
 //        if (F != null) {
 //            CM.startPoll(CM.DeviceID.PAV41.name, PM130Model.F_REGISTER) { F.value = it.af() }
 //        }
-    }
+
 
 //    fun chooseCurrentStage(
 //        iu: MutableState<String>,

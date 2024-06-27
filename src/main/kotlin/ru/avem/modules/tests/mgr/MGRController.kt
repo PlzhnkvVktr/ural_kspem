@@ -88,8 +88,10 @@ suspend fun TestScreenViewModel.startMeasurementMGR(testItemLine: MutableState<M
             while (isTestRunning.value && statusMGR != 4 && time-- > 0) {
                 delay(1000)
             }
+            appendMessageToLog("Измерение завершено", LogType.MESSAGE)
         } else {
             isTestRunning.value = false
+            appendMessageToLog("Измерение прервано", LogType.ERROR)
         }
     }
 }

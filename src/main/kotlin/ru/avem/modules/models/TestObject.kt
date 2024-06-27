@@ -46,8 +46,18 @@ data class TestItem(
     var after_u_uv_mv: MutableState<String> = mutableStateOf(""),
     var after_u_vw_mv: MutableState<String> = mutableStateOf(""),
     var after_u_wu_mv: MutableState<String> = mutableStateOf(""),
+    var i_v_mv: MutableState<String> = mutableStateOf(""),
+    var i_w_mv: MutableState<String> = mutableStateOf(""),
+    var i_u_mv: MutableState<String> = mutableStateOf(""),
+    var before_i_u_mv: MutableState<String> = mutableStateOf(""),
+    var before_i_v_mv: MutableState<String> = mutableStateOf(""),
+    var before_i_w_mv: MutableState<String> = mutableStateOf(""),
+    var after_i_u_mv: MutableState<String> = mutableStateOf(""),
+    var after_i_v_mv: MutableState<String> = mutableStateOf(""),
+    var after_i_w_mv: MutableState<String> = mutableStateOf(""),
 
-)
+
+    )
 
 
 

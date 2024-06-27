@@ -30,55 +30,20 @@ fun VIUTestWindow (viewModel: TestScreenViewModel) {
                 Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
             }
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "Наименование777")
-
-            }
-//            Row() {
-//                TableCell(text = viewModel.name_1.value)
-//                TableCell(text = viewModel.specifiedMgrU_1.value)
-//                TableCell(text = viewModel.mgrU_1.value)
-//                TableCell(text = viewModel.R15_1.value)
-//                TableCell(text = viewModel.R60_1.value)
-//                TableCell(text = viewModel.kABS_1.value)
-//            }
-//            Row() {
-//                TableCell(text = viewModel.name_2.value)
-//                TableCell(text = viewModel.specifiedMgrU_2.value)
-//                TableCell(text = viewModel.mgrU_2.value)
-//                TableCell(text = viewModel.R15_2.value)
-//                TableCell(text = viewModel.R60_2.value)
-//                TableCell(text = viewModel.kABS_2.value)
-//            }
-//            Row() {
-//                TableCell(text = viewModel.name_3.value)
-//                TableCell(text = viewModel.specifiedMgrU_3.value)
-//                TableCell(text = viewModel.mgrU_3.value)
-//                TableCell(text = viewModel.R15_3.value)
-//                TableCell(text = viewModel.R60_3.value)
-//                TableCell(text = viewModel.kABS_3.value)
-//            }
-//            Column (
-//                modifier = Modifier.padding(top = 20.dp)
-//            ) {
-//                Row(Modifier.background(Color.Gray).fillMaxWidth(0.5f)) {
-//                    TableCell(text = "t")
-//                }
-//
-//                Row(Modifier.fillMaxWidth(0.5f)) {
-//                    TableCell(text = viewModel.tempAmb.value)
-//                }
-//            }
-        }
-        Column (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
-        ) {
-            Row(Modifier.background(Color.Gray).fillMaxWidth(0.25f)) {
+                TableCell(text = "Наименование")
+                TableCell(text = "U, В")
+                TableCell(text = "I, мА")
+                TableCell(text = "t, сек")
                 TableCell(text = "Результат")
             }
-
-            Row(Modifier.fillMaxWidth(0.25f)) {
-                TableCell(text = viewModel.result.value)
+            repeat(3) {
+                Row() {
+                    TableCell(text = viewModel.listTestItems[it].name.value)
+                    TableCell(text = viewModel.listTestItems[it].u_viu.value)
+                    TableCell(text = viewModel.listTestItems[it].i_viu.value)
+                    TableCell(text = viewModel.listTestItems[it].t_viu.value)
+                    TableCell(text = viewModel.listTestItems[it].res_viu.value)
+                }
             }
         }
     }
