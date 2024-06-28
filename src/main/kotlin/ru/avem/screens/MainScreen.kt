@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -32,6 +33,10 @@ class MainScreen() : Screen {
         val viewModel = rememberScreenModel { MainScreenViewModel() }
         val navigator = LocalNavigator.currentOrThrow
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+
+        LifecycleEffect(
+            onStarted = viewModel::clearTestItemList
+        )
 
         Scaffold(
             scaffoldState = scaffoldState,

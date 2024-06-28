@@ -1,6 +1,7 @@
 package ru.avem.modules.tests.utils
 
 import androidx.compose.runtime.MutableState
+import kotlinx.coroutines.delay
 import ru.avem.modules.devices.CM
 import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.utils.cleanForParsing
@@ -16,11 +17,11 @@ fun waitingСonfirm (trigger: MutableState<Boolean>) {
 
 fun ms() = System.currentTimeMillis()
 
-fun sleepWhileRun(sec: Double) {
+suspend fun sleepWhileRun(sec: Double) {
     if (isTestRunning.value) {
         var timer = sec
         while (isTestRunning.value && timer > 0) {
-            Thread.sleep(100)
+            delay(100)
             timer -= 0.1
         }
     }

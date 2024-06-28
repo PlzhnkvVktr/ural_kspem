@@ -18,19 +18,16 @@ import ru.avem.modules.tests.CustomController.appendMessageToLog
 import ru.avem.modules.tests.CustomController.initAVEM9
 import ru.avem.modules.tests.CustomController.statusMGR
 
-//class MeasurementMGR() : Test() {
-//
-//}
 suspend fun TestScreenViewModel.startMeasurementMGR(testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
-    repeat(3) {
+    repeat(listTestItems.size) {
         if (isTestRunning.value) initAVEM9()
         if (isTestRunning.value and testItemLine.value.hasNext()) {
             Test.getCurrentTestObject(testItemLine, currentTest)
-            val idx = currentTest.value?.order
-            listTestItems[idx!!].name.value = currentTest.value?.factoryNumber.toString()
+            val idx = currentTest.value!!.order
+            listTestItems[idx].name.value = currentTest.value!!.factoryNumber
             listTestItems[idx].specifiedMgrU.value = Test.testObjectInfo.value?.u_mgr.toString()
 
-            testObjectName.value = currentTest.value?.selectedTI.toString()
+            testObjectName.value = currentTest.value!!.selectedTI
             testObject = DBManager.getTI(testObjectName.value)
 
             isDialog.value = true
@@ -59,7 +56,11 @@ suspend fun TestScreenViewModel.startMeasurementMGR(testItemLine: MutableState<M
                 listTestItems[idx].kABS.value = value.toString()
             }
             if (isTestRunning.value) {
-                pr102.viu1(true)
+                when (idx) {
+                    2 -> pr102.viu2(true)
+                    3 -> pr102.viu3(true)
+                    else -> pr102.viu1(true)
+                }
                 delay(1000)
             }
             if (isTestRunning.value) {

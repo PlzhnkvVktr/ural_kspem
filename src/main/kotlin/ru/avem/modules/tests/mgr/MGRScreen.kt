@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -31,6 +32,10 @@ class MGRScreen(private var mainViewModel: MainScreenViewModel) : Test() {
         val viewModel = rememberScreenModel { TestScreenViewModel() }
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navigator = LocalNavigator.currentOrThrow
+
+        LifecycleEffect(
+            onStarted = viewModel::clearFields
+        )
 
         Column {
             Scaffold(
